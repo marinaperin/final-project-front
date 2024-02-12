@@ -1,0 +1,271 @@
+$gold-color: #e6c068; 
+
+.home-background {
+  width: 100vw;
+  @media (max-width: 1280px) {
+    display: none;
+  }
+}
+
+img.tablet-show {
+  display: none;
+  @media (max-width: 1280px) {
+    display: unset;
+    width: 100vw;
+  }
+}
+
+.home-figure {
+  position: relative;
+  overflow: hidden;
+  .tablet-hide {
+    @media (max-width: 1280px) {
+      display: none;
+    }
+  }
+  .home-caption {
+    padding: 2rem;
+    font-size: 30px;
+    width: 30%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.813);
+    border: 1px solid $gold-color;
+    border-radius: 2rem;
+    position: absolute;
+    top: 30%;
+    left: calc(100% - (60% + 4rem));
+    @media (max-width: 1280px) {
+      width: 40%;
+      top: 20%;
+    }
+    @media (max-width: 640px) {
+      left: calc(100% - (55% + 4rem));
+    }
+  }
+  .boat-yokai {
+    width: 20%;
+    filter: opacity(0.9);
+    position: absolute;
+    bottom: -3rem;
+    left: -0.5rem;
+    animation: boat 7s ease-out 1s infinite normal none;
+    @keyframes boat {
+      0%,
+      100% {
+        transform: translateY(0px);
+        transform-origin: 50% 100%;
+      }
+      10% {
+        transform: translateY(-10px);
+      }
+      20%,
+      40%,
+      60% {
+        transform: translateY(-20px);
+      }
+      30%,
+      50%,
+      70% {
+        transform: translateY(-30px);
+      }
+      80% {
+        transform: translateY(-20px);
+      }
+      90% {
+        transform: translateY(-10px);
+      }
+    }
+  }
+  .carp {
+    width: 5%;
+    filter: opacity(80%);
+    position: absolute;
+    bottom: 7%;
+    left: 35%;
+    animation: carp 7s ease-out 1s infinite normal none;
+    @keyframes carp {
+      0% {
+        transform: translateY(0px);
+        transform-origin: 50% 100%;
+      }
+      10% {
+        transform: translateY(-4px) translateX(4px);
+      }
+      20%,
+      40%,
+      60% {
+        transform: translateY(-6px) translateX(6px);
+      }
+      30%,
+      50%,
+      70% {
+        transform: translateY(-8px) translateX(8px);
+      }
+      80% {
+        transform: translateY(-10px) translateX(10px);
+      }
+      90% {
+        transform: translateY(-12px) translateX(12px);
+      }
+      100% {
+        transform: translateY(-14px) translateX(14px);
+      }
+    }
+  }
+  .sitting-yokais {
+    width: 25%;
+    filter: opacity(0.9);
+    position: absolute;
+    bottom: -1rem;
+    right: 8rem;
+  }
+  .running-yokais {
+    width: 8%;
+    position: absolute;
+    right: 20%;
+    bottom: 27%;
+    animation: runningCouple 5s ease-out 1s infinite normal none;
+    @keyframes runningCouple {
+      0% {
+        transform: translateX(0px);
+        transform-origin: 50% 100%;
+      }
+      80% {
+        transform: translateX(-40px);
+        opacity: 1;
+      }
+      90% {
+        transform: translateX(-50px);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateX(-60px);
+        opacity: 0;
+      }
+    }
+  }
+  .walking-yokai {
+    width: 3%;
+    position: absolute;
+    filter: opacity(0.8);
+    left: 37%;
+    bottom: 34%;
+    animation: walking 5s ease-in-out 1s infinite normal none;
+    @keyframes walking {
+      0% {
+        transform: translateY(0) translateX(0);
+      }
+      30% {
+        transform: translateY(-4px) translateX(4px);
+      }
+      50% {
+        width: 2.9%;
+      }
+      60% {
+        transform: translateY(-6px) translateX(6px);
+      }
+      80% {
+        transform: translateY(-8px) translateX(8px);
+      }
+      100% {
+        transform: translateY(-10px) translateX(10px);
+        width: 2.8%;
+      }
+    }
+  }
+  .flying-yokai {
+    width: 10%;
+    position: absolute;
+    top: 10%;
+    left: 45%;
+    animation: flying 7s ease-out 1s infinite normal none;
+    @keyframes flying {
+      0% {
+        transform: translateY(0px);
+        transform-origin: 50% 100%;
+      }
+      10% {
+        transform: translateY(-10px) translateX(-10px);
+      }
+      30% {
+        transform: translateY(-15px) translateX(-15px);
+      }
+      50% {
+        transform: translateY(-20px) translateX(-10px);
+      }
+      80% {
+        transform: translateY(-25px) translateX(-15px);
+      }
+      90% {
+        transform: translateY(-15px) translateX(-20px);
+      }
+    }
+  }
+  .dropping-yokai {
+    width: 10%;
+    filter: opacity(0.8);
+    position: absolute;
+    top: -3%;
+    right: 0;
+    animation: dropping 7s ease-out 1s infinite normal none;
+    @keyframes dropping {
+      0%,
+      100% {
+        transform: translateY(0px);
+        transform-origin: 50% 100%;
+      }
+      10% {
+        transform: translateY(-10px);
+      }
+      20%,
+      40%,
+      60% {
+        transform: translateY(-20px);
+      }
+      30%,
+      50%,
+      70% {
+        transform: translateY(-30px);
+      }
+      80% {
+        transform: translateY(-20px);
+      }
+      90% {
+        transform: translateY(-10px);
+      }
+    }
+  }
+  .dragon {
+    width: 7%;
+    position: absolute;
+    filter: opacity(0.8);
+    top: 6%;
+    left: 11%;
+    animation: dragon 7s ease-out 1s infinite normal none;
+    @keyframes dragon {
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+      10% {
+        transform: translateY(-2px);
+      }
+      20%,
+      40%,
+      60% {
+        transform: translateY(-4px);
+      }
+      30%,
+      50%,
+      70% {
+        transform: translateY(-6px);
+      }
+      80% {
+        transform: translateY(-4px);
+      }
+      90% {
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
