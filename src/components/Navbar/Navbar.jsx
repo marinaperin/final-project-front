@@ -3,7 +3,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import { TfiClose } from "react-icons/tfi";
 import MainMenu from "./MainMenu";
 import { useState } from "react";
-import "../nav.scss";
+import "./nav.scss";
 
 export default function () {
   const [isOpen, setIsOpen] = useState(false);

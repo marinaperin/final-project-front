@@ -1,4 +1,4 @@
-import "../home.scss";
+import "./home.scss";
 
 export default function () {
   return (
