@@ -33,11 +33,23 @@ a {
   }
 }
 
-.not-found-page {
+.not-found-page,
+.about-page {
   display: grid;
   justify-items: center;
+  text-align: center;
   p {
     color: rgb(185, 70, 70);
     font-weight: 500;
+  }
+  .about-h1 {
+    color: $gold-color;
+  }
+  div {
+    padding: 3rem;
+    width: 50%;
+  }
+  img{
+    width: 40%;
   }
 }
