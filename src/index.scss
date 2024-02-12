@@ -32,3 +32,12 @@ a {
     display: none;
   }
 }
+
+.not-found-page{
+  display: grid;
+  justify-items: center;
+  p{
+    color: rgb(185, 70, 70);
+    font-weight: 500;
+  }
+}
