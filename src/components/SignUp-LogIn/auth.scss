@@ -1,6 +1,7 @@
-@import "../../index.scss"; 
+@import "../../index.scss";
 
-.sign-up, .log-in {
+.sign-up,
+.log-in {
   display: grid;
   justify-items: center;
   gap: 1rem;
@@ -27,10 +28,16 @@
     background-color: black;
     color: $gold-color;
     padding: 0.2rem 0.5rem;
-    transition: .5s ease-in-out;
-    &:hover{
+    transition: 0.5s ease-in-out;
+    &:hover {
       background-color: $gold-color;
       color: black;
+    }
+    @media (max-width: 800px) {
+      &:hover {
+        background-color: black;
+        color: $gold-color;
+      }
     }
   }
 }

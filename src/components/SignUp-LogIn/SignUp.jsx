@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './auth.scss'
+import "./auth.scss";
 
 export default function () {
   const [inputValues, setInputValues] = useState({
@@ -16,6 +16,7 @@ export default function () {
           Email:
           <input
             type="email"
+            required
             value={inputValues.email}
             onChange={(e) => {
               setInputValues({ ...inputValues, email: e.target.value });
@@ -26,6 +27,7 @@ export default function () {
           Password:
           <input
             type="password"
+            required
             value={inputValues.password}
             onChange={(e) => {
               setInputValues({ ...inputValues, password: e.target.value });
@@ -36,6 +38,7 @@ export default function () {
           Confirm password:
           <input
             type="password"
+            required
             value={inputValues.confirmPassword}
             onChange={(e) => {
               setInputValues({

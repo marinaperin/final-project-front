@@ -15,6 +15,7 @@ export default function () {
           Email:
           <input
             type="email"
+            required
             value={inputValues.email}
             onChange={(e) => {
               setInputValues({ ...inputValues, email: e.target.value });
@@ -25,6 +26,7 @@ export default function () {
           Password:
           <input
             type="password"
+            required
             value={inputValues.password}
             onChange={(e) => {
               setInputValues({ ...inputValues, password: e.target.value });

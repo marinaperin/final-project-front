@@ -22,7 +22,7 @@ export default function () {
           </button>
           {isOpen && (
             <menu>
-              <MainMenu cssClass="tablet-show" />
+              <MainMenu cssClass="tablet-show" isOpen={(v)=>{setIsOpen(v)}}/>
             </menu>
           )}
         </li>

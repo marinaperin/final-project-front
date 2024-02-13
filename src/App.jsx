@@ -8,6 +8,8 @@ import SignUp from "./components/SignUp-LogIn/SignUp";
 import LogIn from "./components/SignUp-LogIn/LogIn";
 import Creatures from "./components/Creatures/Creatures";
 import SingleCreature from "./components/Creatures/SingleCreature";
+import Cultures from "./components/Cultures/Cultures";
+import InnerNavbar from "./components/Cultures/InnerNavbar";
 
 function App() {
   return (
@@ -20,17 +22,19 @@ function App() {
           <Route index element={<Creatures />} />
           <Route path="creature/:id" element={<SingleCreature />} />
         </Route>
-        <Route path="cultures">
-          <Route index element />
-          <Route path=":id" element />
-          <Route path="cultures/events">
+        <Route path="cultures" element={<InnerNavbar />}>
+          <Route index element={<Cultures />} />
+          <Route path="culture/:id" element />
+          <Route path="/cultures/events">
             <Route index element />
-            <Route path=":id" element />
+            <Route path="event/:id" element />
           </Route>
         </Route>
         <Route path="sign-up" element={<SignUp />} />
         <Route path="log-in" element={<LogIn />} />
         <Route path="favorites" element />
+        <Route path="add" element />
+        <Route path="search" element />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

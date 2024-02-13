@@ -23,8 +23,8 @@ a {
   color: inherit;
 }
 
-h1{
-  color: $gold-color;
+h1 {
+  color: gold;
 }
 
 .active {
@@ -32,7 +32,7 @@ h1{
 }
 
 .tablet-hide {
-  @media (max-width: 800px) {
+  @media (max-width: 900px) {
     display: none;
   }
 }
@@ -49,6 +49,9 @@ h1{
   .about-h1 {
     color: $gold-color;
   }
+  .not-found-h1{
+    color: white;
+  }
   div {
     padding: 3rem;
     width: 50%;
@@ -63,6 +66,7 @@ button {
   font-family: inherit;
   font-size: smaller;
   outline: none;
+  cursor: pointer;
   color: $gold-color;
   border: 1px solid $gold-color;
   border-radius: 20px;
@@ -72,15 +76,18 @@ button {
     background-color: $gold-color;
     color: black;
   }
+  @media (max-width: 800px) {
+    background-color: black;
+    color: $gold-color;
+  }
 }
 
-.loader-container{
+.loader-container {
   display: flex;
   justify-content: center;
   align-items: center;
-.loader{
-  width: 50%;
-  z-index: 1;
-
-}
+  .loader {
+    width: 50%;
+    z-index: 1;
+  }
 }
