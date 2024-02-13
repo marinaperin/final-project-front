@@ -15,7 +15,7 @@ export default function () {
         <label>
           Email:
           <input
-            type="text"
+            type="email"
             value={inputValues.email}
             onChange={(e) => {
               setInputValues({ ...inputValues, email: e.target.value });
