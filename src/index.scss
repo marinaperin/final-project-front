@@ -24,7 +24,7 @@ a {
 }
 
 h1 {
-  color: gold;
+  color: $gold-color;
 }
 
 .active {
@@ -76,7 +76,7 @@ button {
     background-color: $gold-color;
     color: black;
   }
-  @media (max-width: 800px) {
+  @media (max-width: 900px) {
     background-color: black;
     color: $gold-color;
   }

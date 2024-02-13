@@ -99,7 +99,7 @@
         height: 300px;
       }
     }
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
       &:hover{
         background-color: transparent;
       }
@@ -145,7 +145,7 @@
     &:hover{
       background-color: $gold-color;
     }
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
       &:hover{
         background-color: black;
       }
