@@ -7,6 +7,7 @@ import NotFound from "./components/NotFound";
 import SignUp from "./components/SignUp-LogIn/SignUp";
 import LogIn from "./components/SignUp-LogIn/LogIn";
 import Creatures from "./components/Creatures/Creatures";
+import SingleCreature from "./components/Creatures/SingleCreature";
 
 function App() {
   return (
@@ -14,22 +15,22 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/creatures">
+        <Route path="about" element={<About />} />
+        <Route path="creatures">
           <Route index element={<Creatures />} />
-          <Route path=":id" element />
+          <Route path="creature/:id" element={<SingleCreature />} />
         </Route>
-        <Route path="/cultures">
+        <Route path="cultures">
           <Route index element />
           <Route path=":id" element />
-          <Route path="/cultures/events">
+          <Route path="cultures/events">
             <Route index element />
-            <Route path=":id" element/>
+            <Route path=":id" element />
           </Route>
         </Route>
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/log-in" element={<LogIn />} />
-        <Route path="/favorites" element />
+        <Route path="sign-up" element={<SignUp />} />
+        <Route path="log-in" element={<LogIn />} />
+        <Route path="favorites" element />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

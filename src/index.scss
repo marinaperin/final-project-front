@@ -23,6 +23,10 @@ a {
   color: inherit;
 }
 
+h1{
+  color: $gold-color;
+}
+
 .active {
   color: #766238;
 }
@@ -70,3 +74,13 @@ button {
   }
 }
 
+.loader-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+.loader{
+  width: 50%;
+  z-index: 1;
+
+}
+}

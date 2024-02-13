@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../lib/axios";
 import "./creatures.scss";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ const { VITE_API_URL } = import.meta.env;
 
 export default function () {
   const [data, setData] = useState({});
-  const [creatures, setCreatures] = useState([]);
+  const [creatures, setCreatures] = useState();
   const [error, setError] = useState(false);
   const [n, setN] = useState(1);
 
@@ -15,8 +15,8 @@ export default function () {
       .get(`${VITE_API_URL}/creatures?page=${n}`)
       .then((res) => {
         console.log(res);
-        setData({ ...res.data });
         setCreatures(res.data.results);
+        setData({ ...res.data });
       })
       .catch((err) => {
         console.error(err);
@@ -27,8 +27,12 @@ export default function () {
   return (
     <main className="creatures-page">
       {error && "There was an error, try again in a few minutes."}
-      {!error && !data && "Loading..."}
-      {!error && data && (
+      {!error && !creatures && (
+        <div className="loader-container">
+          <img src="../../../public/bat-loader.gif" alt="" className="loader" />
+        </div>
+      )}
+      {!error && creatures && (
         <>
           <header>
             <img
