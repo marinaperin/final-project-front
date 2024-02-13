@@ -1,0 +1,31 @@
+@import "../../index.scss"; 
+
+.sign-up {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  h1 {
+    margin-bottom: 1rem;
+    color: $gold-color;
+  }
+  section {
+    display: grid;
+    justify-items: center;
+  }
+  input,
+  button {
+    display: block;
+    margin-block: 0.5rem;
+    padding: 0.2rem;
+    outline: none;
+    border: 1px solid $gold-color;
+    border-radius: 2rem;
+    font: inherit;
+    text-align: center;
+  }
+  button {
+    background-color: black;
+    color: $gold-color;
+    padding: 0.2rem 0.5rem;
+  }
+}
