@@ -1,5 +1,5 @@
 import axios from "../../lib/axios";
-import "./creatures.scss";
+import "./events.scss";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -7,14 +7,14 @@ const { VITE_API_URL } = import.meta.env;
 
 export default function () {
   const { id } = useParams();
-  const [creature, setCreature] = useState();
+  const [event, setEvent] = useState();
   const [error, setError] = useState(false);
 
   useEffect(() => {
     axios
-      .get(`${VITE_API_URL}/creatures/${id}`)
+      .get(`${VITE_API_URL}/events/${id}`)
       .then((res) => {
-        setCreature({ ...res.data });
+        setEvent({ ...res.data });
         console.log(res.data);
       })
       .catch((err) => {
@@ -27,7 +27,7 @@ export default function () {
     <>
       <main className="single-resource">
         {error && "There was an error, try again in a few minutes."}
-        {!error && !creature && (
+        {!error && !event && (
           <div className="loader-container">
             <img
               src="../../../public/bat-loader.gif"
@@ -36,68 +36,54 @@ export default function () {
             />
           </div>
         )}
-        {!error && creature && (
+        {!error && event && (
           <>
-            <h1>{creature.name}</h1>
+            <h1>{event.name}</h1>
             <section className="main-single-page">
               <figure>
-                <img src={creature.img} alt="" />
+                <img src={event.img} alt="" />
               </figure>
               <div>
                 <ul>
                   <li>
                     <strong>Culture: </strong>
                     <Link
-                      to={`/cultures/culture/${creature.culture._id}`}
+                      to={`/cultures/culture/${event.culture._id}`}
                       className="link"
                     >
-                      {creature.culture.name} ({creature.culture.country})
+                      {event.culture.name} ({event.culture.country})
                     </Link>
                   </li>
                   <li>
                     <strong>Type: </strong>
-                    {creature.type.length > 1 && (
-                      <>
-                        {creature.type.map((t) => {
-                          return <span key={t}>{t} | </span>;
-                        })}
-                      </>
-                    )}
-                    {creature.type.length === 1 && creature.type}
+                    {event.type}
                   </li>
                   <li>
                     <strong>Description: </strong>
-                    {creature.description}
-                  </li>
-                  <li>
-                    <strong>Appearance: </strong>
-                    {creature.appearance}
-                  </li>
-                  <li>
-                    <strong>Legends: </strong>
-                    {creature.legends}
+                    {event.description}
                   </li>
                   <li>
                     <strong>First Mention: </strong>
-                    {creature.first_mention}
+                    {event.first_mention}
                   </li>
                   <li>
-                    <strong>Traits: </strong>
-                    <ul className="traits-ul">
-                      {creature.traits.map((t) => {
-                        return <li key={t}>{t}</li>;
+                    <strong>
+                      {event.date.length === 1 ? "Date" : "Dates"}:{" "}
+                    </strong>
+                    <ul className="dates-ul">
+                      {event.date.map((d) => {
+                        return <li key={d}>{d}</li>;
                       })}
                     </ul>
                   </li>
-                  {creature.event && <li>
-                    <strong>Event: </strong>
-                    <Link
-                      to={`/cultures/events/event/${creature.event._id}`}
-                      className="link"
-                    >
-                      {creature.event.name}
-                    </Link>
-                  </li>}
+                  <li>
+                    <strong>Creatures: </strong>
+                    <ul className="creatures-ul">
+                      {event.creatures.map((c) => {
+                        return <li key={c._id}><Link to={`/creatures/creature/${c._id}`} className="link">{c.name}</Link></li>;
+                      })}
+                    </ul>
+                  </li>
                 </ul>
               </div>
             </section>

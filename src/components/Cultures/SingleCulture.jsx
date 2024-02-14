@@ -61,6 +61,14 @@ export default function () {
                       })}
                     </ul>
                   </li>
+                 {culture.events.length > 0 && <li>
+                    <strong>Events/Rituals: </strong>
+                    <ul className="creatures-ul">
+                      {culture.events.map((c) => {
+                        return <li key={c._id}><Link to={`/cultures/events/event/${c._id}`} className='link'>{c.name}</Link></li>;
+                      })}
+                    </ul>
+                  </li>}
                   <li>
                     <strong>Religions: </strong>
                     <ul className="nested-ul">
