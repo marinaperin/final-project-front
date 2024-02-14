@@ -12,6 +12,10 @@
 }
 
 .main-page {
+  header{
+    display: grid;
+    justify-items: center;
+  }
   h1 {
     margin-block: 1rem;
   }
@@ -19,6 +23,28 @@
     display: grid;
     justify-items: center;
     gap: 0.5rem;
-    padding-bottom: 1rem;
+    padding-bottom: .5rem;
+    .select-p{
+      display: grid;
+      span{
+        display: flex;
+        gap: .2rem;
+        align-items: center;
+      }
+    }
+    select{
+      margin-top: .4rem;
+    }
   }
+}
+
+.creatures-ul {
+  margin-left: 2rem;
+  li{
+    margin-block: .3rem;
+  }
+}
+
+.nested-ul{
+  margin-left: 2rem;
 }

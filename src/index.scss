@@ -49,7 +49,7 @@ h1 {
   .about-h1 {
     color: $gold-color;
   }
-  .not-found-h1{
+  .not-found-h1 {
     color: white;
   }
   div {
@@ -61,7 +61,7 @@ h1 {
   }
 }
 
-button {
+button, select {
   padding: 0.3rem 0.5rem;
   font-family: inherit;
   font-size: smaller;
@@ -96,4 +96,10 @@ button {
   display: flex;
   justify-content: center;
   gap: 0.1rem;
+  @media (max-width: 900px) {
+    button:hover {
+      background-color: black;
+      color: $gold-color;
+    }
+  }
 }

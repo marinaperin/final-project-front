@@ -47,7 +47,7 @@ export default function () {
                   <li>
                     <strong>Culture: </strong>
                     <Link
-                      to={`/cultures/${creature.culture._id}`}
+                      to={`/cultures/culture/${creature.culture._id}`}
                     className="link">
                       {creature.culture.name} ({creature.culture.country})
                     </Link>

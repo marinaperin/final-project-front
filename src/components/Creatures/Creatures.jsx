@@ -42,8 +42,7 @@ export default function () {
             />
             <h1>Creatures | Entities | Deities</h1>
             <div className="creatures-info">
-              <p>Total results: {data.total_results}</p>
-              <p>Total pages: {data.total_pages}</p>
+              <p>{data.total_results} results in {data.total_pages} pages</p>
             </div>
             <div className="pages-btn">
               <button
