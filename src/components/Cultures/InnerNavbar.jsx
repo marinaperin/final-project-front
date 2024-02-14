@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "./cultures.scss";
 
 export default function () {
@@ -14,6 +14,7 @@ export default function () {
           </li>
         </menu>
       </nav>
+      <Outlet/>
     </>
   );
 }

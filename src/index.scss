@@ -91,3 +91,9 @@ button {
     z-index: 1;
   }
 }
+
+.pages-btn {
+  display: flex;
+  justify-content: center;
+  gap: 0.1rem;
+}

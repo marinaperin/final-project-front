@@ -1,6 +1,6 @@
 @import "../../index.scss";
 
-.creatures-page {
+.main-page {
   display: grid;
   justify-items: center;
   position: relative;
@@ -40,12 +40,7 @@
     justify-content: space-evenly;
     padding: 1rem;
   }
-  .pages-btn {
-    display: flex;
-    justify-content: center;
-    gap: 0.1rem;
-  }
-  .creatures-grid {
+  .resources-grid {
     display: grid;
     padding: 2rem;
     grid-template-columns: repeat(5, 1fr);
@@ -63,7 +58,7 @@
       grid-template-columns: 1fr;
     }
   }
-  .creature-card {
+  .resource-card {
     display: grid;
     height: 400px;
     gap: 0.5rem;
@@ -107,7 +102,7 @@
   }
 }
 
-.single-creature {
+.single-resource {
   display: grid;
   justify-items: center;
   gap: 1rem;

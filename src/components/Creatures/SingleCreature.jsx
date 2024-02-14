@@ -24,7 +24,7 @@ export default function () {
 
   return (
     <>
-      <main className="single-creature">
+      <main className="single-resource">
         {error && "There was an error, try again in a few minutes."}
         {!error && !creature && (
           <div className="loader-container">
@@ -38,7 +38,7 @@ export default function () {
         {!error && creature && (
           <>
             <h1>{creature.name}</h1>
-            <section className="main-page">
+            <section className="main-single-page">
               <figure>
                 <img src={creature.img} alt="" />
               </figure>

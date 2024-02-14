@@ -25,7 +25,7 @@ export default function () {
   }, [n]);
 
   return (
-    <main className="creatures-page">
+    <main className="main-page">
       {error && "There was an error, try again in a few minutes."}
       {!error && !creatures && (
         <div className="loader-container">
@@ -51,28 +51,28 @@ export default function () {
                   setN(1);
                 }}
               >
-                1
+                <Link to='/creatures'>1</Link>
               </button>
               <button
                 onClick={() => {
                   setN(2);
                 }}
               >
-                2
+                <Link to='/creatures?page=2'>2</Link>
               </button>
               <button
                 onClick={() => {
                   setN(3);
                 }}
               >
-                3
+                <Link to='/creatures?page=3'>3</Link>
               </button>
             </div>
           </header>
-          <section className="creatures-grid">
+          <section className="resources-grid">
             {creatures.map((c, i) => {
               return (
-                <div key={`${c.name} + ${i}`} className="creature-card">
+                <div key={`${c.name} + ${i}`} className="resource-card">
                   <Link to={`creature/${c._id}`}>
                     <div>
                       <h3>{c.name}</h3>

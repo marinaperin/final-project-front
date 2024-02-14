@@ -22,6 +22,7 @@ export default function () {
           </button>
           {isOpen && (
             <menu>
+              {/* Created extra component to make nav responsive */}
               <MainMenu cssClass="tablet-show" isOpen={(v)=>{setIsOpen(v)}}/>
             </menu>
           )}
