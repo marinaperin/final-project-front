@@ -13,6 +13,7 @@ import InnerNavbar from "./components/Cultures/InnerNavbar";
 import SingleCulture from "./components/Cultures/SingleCulture";
 import Events from "./components/Events/Events";
 import SingleEvent from "./components/Events/SingleEvent";
+import Search from "./components/Search";
 
 function App() {
   return (
@@ -27,17 +28,17 @@ function App() {
         </Route>
         <Route path="cultures" element={<InnerNavbar />}>
           <Route index element={<Cultures />} />
-          <Route path="culture/:id" element={<SingleCulture/>} />
+          <Route path="culture/:id" element={<SingleCulture />} />
           <Route path="/cultures/events">
-            <Route index element={<Events/>}/>
-            <Route path="event/:id" element={<SingleEvent/>} />
+            <Route index element={<Events />} />
+            <Route path="event/:id" element={<SingleEvent />} />
           </Route>
         </Route>
         <Route path="sign-up" element={<SignUp />} />
         <Route path="log-in" element={<LogIn />} />
         <Route path="favorites" element />
         <Route path="add" element />
-        <Route path="search" element />
+        <Route path="search" element={<Search />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

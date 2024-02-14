@@ -14,7 +14,6 @@ export default function () {
     axios
       .get(`${VITE_API_URL}/creatures?page=${n}`)
       .then((res) => {
-        console.log(res);
         setCreatures(res.data.results);
         setData({ ...res.data });
       })
@@ -26,7 +25,7 @@ export default function () {
 
   return (
     <main className="main-page">
-      {error && "There was an error, try again in a few minutes."}
+      {error && <div className="error-msg">There was an error, try again in a few minutes.</div>}
       {!error && !creatures && (
         <div className="loader-container">
           <img src="../../../public/bat-loader.gif" alt="" className="loader" />

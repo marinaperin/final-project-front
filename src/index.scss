@@ -37,6 +37,53 @@ h1 {
   }
 }
 
+button, select, input {
+  padding: 0.3rem 0.5rem;
+  font-family: inherit;
+  font-size: smaller;
+  outline: none;
+  cursor: pointer;
+  color: $gold-color;
+  border: 1px solid $gold-color;
+  border-radius: 20px;
+  background-color: black;
+  transition: 0.5s ease;
+  &:hover {
+    background-color: $gold-color;
+    color: black;
+  }
+  @media (max-width: 900px) {
+    background-color: black;
+    color: $gold-color;
+  }
+}
+.error-msg{
+    margin-block: 1rem;
+    color: indianred;
+  }
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .loader {
+    width: 50%;
+    z-index: 1;
+  }
+}
+
+.pages-btn {
+  display: flex;
+  justify-content: center;
+  gap: 0.1rem;
+  @media (max-width: 900px) {
+    button:hover {
+      background-color: black;
+      color: $gold-color;
+    }
+  }
+}
+
+// NOT FOUND AND ABOUT PAGE --------------------------------
 .not-found-page,
 .about-page {
   display: grid;
@@ -61,46 +108,136 @@ h1 {
   }
 }
 
-button, select {
-  padding: 0.3rem 0.5rem;
-  font-family: inherit;
-  font-size: smaller;
-  outline: none;
-  cursor: pointer;
-  color: $gold-color;
-  border: 1px solid $gold-color;
-  border-radius: 20px;
-  background-color: black;
-  transition: 0.5s ease;
-  &:hover {
-    background-color: $gold-color;
-    color: black;
+//SEARCH PAGE -------------------------------------
+
+.search-page{
+  display: grid;
+  justify-items: center;
+  header{
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+    input{
+      background-color: white;
+      text-align: center;
+      color: black;
+      margin-left: .3rem;
+      margin-bottom: 1rem;
+    }
+    .btn-container{
+      display: flex;
+      justify-content: center;
+    }
   }
-  @media (max-width: 900px) {
+  
+}
+
+//GRID TEMPLATE AND CARD TEMPLATE ------------------------------ 
+.resources-grid {
+  display: grid;
+  padding: 2rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  @media (max-width: 1440px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+.resource-card {
+  display: grid;
+  height: 400px;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid $gold-color;
+  overflow: hidden;
+  border-radius: 1rem;
+  transition: 0.5s ease-in-out;
+  &:hover {
     background-color: black;
+  }
+  h3 {
     color: $gold-color;
   }
-}
-
-.loader-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .loader {
-    width: 50%;
-    z-index: 1;
-  }
-}
-
-.pages-btn {
-  display: flex;
-  justify-content: center;
-  gap: 0.1rem;
-  @media (max-width: 900px) {
-    button:hover {
+  .intro-card {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.3rem;
+    p {
+      border: 1px solid $gold-color;
+      padding: 0.2rem;
+      border-radius: 0.5rem;
       background-color: black;
-      color: $gold-color;
+    }
+  }
+  .lower-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      border-radius: 1rem;
+      height: 300px;
+    }
+  }
+  @media (max-width: 900px) {
+    &:hover{
+      background-color: transparent;
     }
   }
 }
 
+
+// SINGLE RESOURCE PAGE ------------------------------------
+.single-resource {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: 3rem;
+  .main-single-page {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    ul {
+      list-style-type: circle;
+      li{
+        padding: .2rem;
+      }
+      @media (max-width: 800px) {
+        padding-left: 2rem;
+      }
+    }
+    strong {
+      color: $gold-color;
+    }
+    @media (max-width: 800px) {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
+  }
+  figure > img {
+    border-radius: 1rem;
+    border: 1px solid $gold-color;
+  }
+  .link {
+    background-color: black;
+    padding: .3rem;
+    border-radius: 2rem;
+    transition: .5s ease-in-out;
+    &:hover{
+      background-color: $gold-color;
+    }
+    @media (max-width: 900px) {
+      &:hover{
+        background-color: black;
+      }
+    }
+  }
+}

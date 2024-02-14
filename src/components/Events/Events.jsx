@@ -14,7 +14,6 @@ export default function () {
     axios
       .get(`${VITE_API_URL}/events?page=${n}`)
       .then((res) => {
-        console.log(res);
         setEvents(res.data.results);
         setData({ ...res.data });
       })
@@ -26,7 +25,7 @@ export default function () {
 
   return (
     <main className="main-page">
-      {error && "There was an error, try again in a few minutes."}
+      {error && <div className="error-msg">There was an error, try again in a few minutes.</div>}
       {!error && !events && (
         <div className="loader-container">
           <img src="../../../public/bat-loader.gif" alt="" className="loader" />

@@ -15,7 +15,6 @@ export default function () {
       .get(`${VITE_API_URL}/creatures/${id}`)
       .then((res) => {
         setCreature({ ...res.data });
-        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -26,7 +25,7 @@ export default function () {
   return (
     <>
       <main className="single-resource">
-        {error && "There was an error, try again in a few minutes."}
+        {error && <div className="error-msg">There was an error, try again in a few minutes.</div>}
         {!error && !creature && (
           <div className="loader-container">
             <img

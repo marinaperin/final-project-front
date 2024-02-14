@@ -11,7 +11,7 @@ export default function (cssClass, isOpen) {
         <NavLink
           to="/about"
           onClick={() => {
-            isOpen(false);
+            cssClass === "tablet-show" && isOpen(false);
           }}
         >
           About
@@ -21,7 +21,7 @@ export default function (cssClass, isOpen) {
         <NavLink
           to="/search"
           onClick={() => {
-            isOpen(false);
+            cssClass === "tablet-show" && isOpen(false);
           }}
         >
           Search
@@ -31,7 +31,7 @@ export default function (cssClass, isOpen) {
         <NavLink
           to="/creatures"
           onClick={() => {
-            isOpen(false);
+            cssClass === "tablet-show" && isOpen(false);
           }}
         >
           Creatures/Entities/Deities
@@ -50,7 +50,7 @@ export default function (cssClass, isOpen) {
               <Link
                 to={`/cultures`}
                 onClick={() => {
-                  isOpen(false);
+                  cssClass === "tablet-show" && isOpen(false);
                 }}
               >
                 Cultures
@@ -60,7 +60,7 @@ export default function (cssClass, isOpen) {
               <Link
                 to={`/cultures/events`}
                 onClick={() => {
-                  isOpen(false);
+                  cssClass === "tablet-show" && isOpen(false);
                 }}
               >
                 Events
