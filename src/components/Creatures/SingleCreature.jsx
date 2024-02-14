@@ -1,4 +1,5 @@
 import axios from "../../lib/axios";
+import './creatures.scss';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";

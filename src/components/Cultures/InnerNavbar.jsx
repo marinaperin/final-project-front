@@ -10,7 +10,7 @@ export default function () {
             <Link to={`/cultures`}>Cultures</Link>
           </li>
           <li>
-            <Link to={`/cultures/events`}>Events</Link>
+            <Link to={`/cultures/events`}>Events/Rituals</Link>
           </li>
         </menu>
       </nav>

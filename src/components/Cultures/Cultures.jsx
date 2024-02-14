@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./cultures.scss";
 import axios from "../../lib/axios";
 import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
@@ -41,7 +42,9 @@ export default function () {
             <h1>Cultures</h1>
             <div className="cultures-info">
               <p>
-                {data.total_results} results in {data.total_pages} pages
+                {data.total_results}{" "}
+                {data.total_results === 1 ? "result" : "results"} in{" "}
+                {data.total_pages} {data.total_pages === 1 ? "page" : "pages"}
               </p>
               <p className="select-p">
                 <span>

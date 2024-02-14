@@ -11,6 +11,7 @@ import SingleCreature from "./components/Creatures/SingleCreature";
 import Cultures from "./components/Cultures/Cultures";
 import InnerNavbar from "./components/Cultures/InnerNavbar";
 import SingleCulture from "./components/Cultures/SingleCulture";
+import Events from "./components/Events/Events";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
           <Route index element={<Cultures />} />
           <Route path="culture/:id" element={<SingleCulture/>} />
           <Route path="/cultures/events">
-            <Route index element />
+            <Route index element={<Events/>}/>
             <Route path="event/:id" element />
           </Route>
         </Route>
