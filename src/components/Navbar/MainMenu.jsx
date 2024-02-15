@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 
 export default function (cssClass, isOpen) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const { user, logOut } = useUser();
 
   return (
     <>
@@ -69,22 +71,63 @@ export default function (cssClass, isOpen) {
           </ul>
         )}
       </li>
-      <li className={`nav-buttons ${cssClass}`}>
-        <button
-          onClick={() => {
-            navigate("/sign-up");
-          }}
-        >
-          SIGN UP
-        </button>
-        <button
-          onClick={() => {
-            navigate("/log-in");
-          }}
-        >
-          LOG IN
-        </button>
-      </li>
+      {user && user.user_type === "user" && (
+        <>
+          <li>
+            <Link
+              to={`/favorites`}
+              onClick={() => {
+                isOpen(false);
+              }}
+            >
+              Favorites
+            </Link>
+          </li>
+        </>
+      )}
+      {user && user.user_type === "admin" && (
+        <>
+          <li>
+            <Link
+              to={`/add`}
+              onClick={() => {
+                isOpen(false);
+              }}
+            >
+              Add
+            </Link>
+          </li>
+        </>
+      )}
+      {user && (
+        <li>
+          <button
+            onClick={() => {
+              logOut();
+            }}
+          >
+            LOG OUT
+          </button>
+        </li>
+      )}
+      {!user && (
+        <li className={`nav-buttons ${cssClass}`}>
+          <button
+            onClick={() => {
+              navigate("/sign-up");
+            }}
+          >
+            SIGN UP
+          </button>
+          <button
+            onClick={() => {
+              navigate("/log-in");
+            }}
+          >
+            LOG IN
+          </button>
+        </li>
+      )}
     </>
   );
 }

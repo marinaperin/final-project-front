@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useUser } from "../../context/UserContext";
 import "./auth.scss";
 
 export default function () {
@@ -7,11 +8,24 @@ export default function () {
     password: "",
     confirmPassword: "",
   });
+  const { signUp, error, loading, user } = useUser();
+  const [confirmPwdError, setConfirmPwdError] = useState(null);
+  const signUser = () => {
+    const { email, password, confirmPassword } = inputValues;
+    if (password !== confirmPassword) {
+      setConfirmPwdError("Passwords don't match!");
+      return;
+    }
+    signUp(email, password);
+  };
 
   return (
     <main className="sign-up">
       <h1>Sign Up</h1>
-      <section>
+      {loading && <div>Loading...</div>}
+      {error && <div>{error}</div>}
+      {confirmPwdError && <div>{confirmPwdError}</div>}
+      {!user && <section>
         <label>
           Email:
           <input
@@ -50,13 +64,14 @@ export default function () {
         </label>
         <button
           onClick={() => {
-            console.log(inputValues);
+            signUser();
             setInputValues({ email: "", password: "", confirmPassword: "" });
           }}
         >
           SIGN UP
         </button>
-      </section>
+      </section>}
+      {user && <div>Account created successfully</div>}
     </main>
   );
 }

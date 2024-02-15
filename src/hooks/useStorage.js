@@ -7,7 +7,8 @@ export default function (key, defaultVal) {
   );
   const changeState = (newVal) => {
     setState(newVal);
-    sessionStorage.setItem(key, JSON.stringify(newVal));
+    sessionStorage
+    .setItem(key, JSON.stringify(newVal));
   };
   return [state, changeState];
 }

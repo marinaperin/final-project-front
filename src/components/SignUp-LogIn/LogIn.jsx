@@ -1,47 +1,56 @@
 import { useState } from "react";
 import "./auth.scss";
+import { useUser } from "../../context/UserContext";
+import { Navigate } from "react-router-dom";
 
 export default function () {
   const [inputValues, setInputValues] = useState({
     email: "",
     password: "",
   });
+  const { user, loading, error, logIn } = useUser();
+  const { email, password } = inputValues;
 
   return (
     <main className="log-in">
       <h1>Log In</h1>
-      <section>
-        <label>
-          Email:
-          <input
-            type="email"
-            required
-            value={inputValues.email}
-            onChange={(e) => {
-              setInputValues({ ...inputValues, email: e.target.value });
+      {loading && <div>Loading...</div>}
+      {error && <div>{error}</div>}
+      {!user && (
+        <section>
+          <label>
+            Email:
+            <input
+              type="email"
+              required
+              value={inputValues.email}
+              onChange={(e) => {
+                setInputValues({ ...inputValues, email: e.target.value });
+              }}
+            />
+          </label>
+          <label>
+            Password:
+            <input
+              type="password"
+              required
+              value={inputValues.password}
+              onChange={(e) => {
+                setInputValues({ ...inputValues, password: e.target.value });
+              }}
+            />
+          </label>
+          <button
+            onClick={() => {
+              logIn(email, password)
+              setInputValues({ email: "", password: "" });
             }}
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            required
-            value={inputValues.password}
-            onChange={(e) => {
-              setInputValues({ ...inputValues, password: e.target.value });
-            }}
-          />
-        </label>
-        <button
-          onClick={() => {
-            console.log(inputValues);
-            setInputValues({ email: "", password: "" });
-          }}
-        >
-          LOG IN
-        </button>
-      </section>
+          >
+            LOG IN
+          </button>
+        </section>
+      )}
+      {user && <Navigate to='/'/>}
     </main>
   );
 }

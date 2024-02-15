@@ -1,4 +1,4 @@
-import axios from "../../lib/axios";
+import axios from "../lib/axios";
 import { createContext, useContext, useState } from "react";
 import useStorage from "../hooks/useStorage";
 const { VITE_API_URL } = import.meta.env;
@@ -12,15 +12,15 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   const signUp = (email, password) => {
-    if (loading) {
-      return;
-    }
+    if (loading) return;
     setError(null);
     setLoading(true);
     const body = { email, password };
     axios
       .post(`${VITE_API_URL}/user/sign-up`, body)
-      .then((res) => setUser(res.data))
+      .then((res) => {
+        setUser(res.data);
+      })
       .catch((err) => {
         console.error(err);
         setError(error.message);
@@ -31,15 +31,15 @@ export const UserProvider = ({ children }) => {
   };
 
   const logIn = (email, password) => {
-    if (loading) {
-      return;
-    }
+    if (loading) return;
     setError(null);
     setLoading(true);
     const body = { email, password };
     axios
       .post(`${VITE_API_URL}/user/log-in`, body)
-      .then((res) => setUser(res.data))
+      .then((res) => {
+        setUser(res.data);
+      })
       .catch((err) => {
         console.error(err);
         setError(error.message);
@@ -53,7 +53,7 @@ export const UserProvider = ({ children }) => {
     setUser(null);
   };
 
-  const values = {
+  const value = {
     user,
     signUp,
     logIn,
@@ -62,7 +62,7 @@ export const UserProvider = ({ children }) => {
     loading,
   };
 
-  return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
 export const useUser = () => {
