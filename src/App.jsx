@@ -14,6 +14,7 @@ import SingleCulture from "./components/Cultures/SingleCulture";
 import Events from "./components/Events/Events";
 import SingleEvent from "./components/Events/SingleEvent";
 import Search from "./components/Search";
+import Favorites from "./components/Favorites/Favorites";
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
         </Route>
         <Route path="sign-up" element={<SignUp />} />
         <Route path="log-in" element={<LogIn />} />
-        <Route path="favorites" element />
+        <Route path="favorites" element={<Favorites/>} />
         <Route path="add" element />
         <Route path="search" element={<Search />} />
         <Route path="*" element={<NotFound />} />

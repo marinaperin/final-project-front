@@ -100,6 +100,7 @@ input {
 }
 
 // NOT FOUND AND ABOUT PAGE --------------------------------
+
 .not-found-page,
 .about-page {
   display: grid;
@@ -148,6 +149,12 @@ input {
 }
 
 //GRID TEMPLATE AND CARD TEMPLATE ------------------------------
+
+.main-page {
+  display: grid;
+  justify-items: center;
+  position: relative;
+}
 .resources-grid {
   display: grid;
   padding: 2rem;
@@ -207,9 +214,13 @@ input {
       background-color: transparent;
     }
   }
+  .favorite-name{
+    padding: .5rem;
+  }
 }
 
 // SINGLE RESOURCE PAGE ------------------------------------
+
 .single-resource {
   display: grid;
   justify-items: center;
@@ -252,6 +263,13 @@ input {
       &:hover {
         background-color: black;
       }
+    }
+  }
+  .icon-container {
+    .favorite-icon {
+      position: absolute;
+      right: 2rem;
+      top: 10rem;
     }
   }
 }

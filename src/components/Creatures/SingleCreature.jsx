@@ -1,14 +1,19 @@
 import axios from "../../lib/axios";
 import "./creatures.scss";
 import { useEffect, useState } from "react";
+import { FaRegStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
   const { id } = useParams();
   const [creature, setCreature] = useState();
   const [error, setError] = useState(false);
+  const [patchError, setPatchError] = useState(null);
+  const { user, setUser } = useUser();
 
   useEffect(() => {
     axios
@@ -20,12 +25,16 @@ export default function () {
         console.error(err);
         setError(true);
       });
-  }, []);
+  }, [user]);
 
   return (
     <>
       <main className="single-resource">
-        {error && <div className="error-msg">There was an error, try again in a few minutes.</div>}
+        {error && (
+          <div className="error-msg">
+            There was an error, try again in a few minutes.
+          </div>
+        )}
         {!error && !creature && (
           <div className="loader-container">
             <img
@@ -37,6 +46,51 @@ export default function () {
         )}
         {!error && creature && (
           <>
+            {user && user.user_type === "user" && (
+              <div className="icon-container">
+                <p className="favorite-icon">
+                  {!user.favorites.includes(id) ? (
+                    <FaRegStar
+                      onClick={() => {
+                        axios
+                          .patch(`${VITE_API_URL}/user/favorites`, {
+                            id: id,
+                            action: "add",
+                            userId: user._id,
+                          })
+                          .then((res) => {
+                            setUser(res.data);
+                          })
+                          .catch((err) => {
+                            console.error(err);
+                            setPatchError("Issue adding to favorites");
+                          });
+                      }}
+                      className="icon"
+                    />
+                  ) : (
+                    <FaStar
+                      onClick={() => {
+                        axios
+                          .patch(`${VITE_API_URL}/user/favorites`, {
+                            id: id,
+                            action: "remove",
+                            userId: user._id,
+                          })
+                          .then((res) => {
+                            setUser(res.data);
+                          })
+                          .catch((err) => {
+                            console.error(err);
+                            setPatchError("Issue removing from favorites");
+                          });
+                      }}
+                    />
+                  )}
+                </p>
+              </div>
+            )}
+            {patchError && <div>{patchError}</div>}
             <h1>{creature.name}</h1>
             <section className="main-single-page">
               <figure>
@@ -88,15 +142,17 @@ export default function () {
                       })}
                     </ul>
                   </li>
-                  {creature.event && <li>
-                    <strong>Event: </strong>
-                    <Link
-                      to={`/cultures/events/event/${creature.event._id}`}
-                      className="link"
-                    >
-                      {creature.event.name}
-                    </Link>
-                  </li>}
+                  {creature.event && (
+                    <li>
+                      <strong>Event: </strong>
+                      <Link
+                        to={`/cultures/events/event/${creature.event._id}`}
+                        className="link"
+                      >
+                        {creature.event.name}
+                      </Link>
+                    </li>
+                  )}
                 </ul>
               </div>
             </section>

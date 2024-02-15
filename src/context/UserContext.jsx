@@ -7,7 +7,6 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useStorage(null);
-  console.log(user);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -58,6 +57,7 @@ export const UserProvider = ({ children }) => {
     signUp,
     logIn,
     logOut,
+    setUser,
     error,
     loading,
   };
