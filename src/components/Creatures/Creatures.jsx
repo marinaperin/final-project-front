@@ -33,14 +33,14 @@ export default function () {
       )}
       {!error && !creatures && (
         <div className="loader-container">
-          <img src="../../../public/bat-loader.gif" alt="" className="loader" />
+          <img src="../../../bat-loader.gif" alt="" className="loader" />
         </div>
       )}
       {!error && creatures && (
         <>
           <header>
             <img
-              src="../public/skeleton.png"
+              src="../skeleton.png"
               alt=""
               className="skeleton tablet-hide"
             />

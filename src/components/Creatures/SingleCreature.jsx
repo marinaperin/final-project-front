@@ -6,6 +6,7 @@ import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
+import AdminIcons from "../AdminIcons";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -56,7 +57,7 @@ export default function () {
         {!error && !creature && (
           <div className="loader-container">
             <img
-              src="../../../public/bat-loader.gif"
+              src="../../../bat-loader.gif"
               alt=""
               className="loader"
             />
@@ -93,6 +94,7 @@ export default function () {
               </div>
             )}
             {patchError && <div>{patchError}</div>}
+            <AdminIcons resource='creatures'/>
             <h1>{creature.name}</h1>
             <section className="main-single-page">
               <figure>

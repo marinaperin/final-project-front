@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 
-export default function (cssClass, isOpen) {
+export default function ({cssClass, isOpen}) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const { user, logOut, loading } = useUser();

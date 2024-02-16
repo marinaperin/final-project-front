@@ -3,6 +3,7 @@ import "./events.scss";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import AdminIcons from "../AdminIcons";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -25,11 +26,15 @@ export default function () {
   return (
     <>
       <main className="single-resource">
-        {error && <div className="error-msg">There was an error, try again in a few minutes.</div>}
+        {error && (
+          <div className="error-msg">
+            There was an error, try again in a few minutes.
+          </div>
+        )}
         {!error && !event && (
           <div className="loader-container">
             <img
-              src="../../../public/bat-loader.gif"
+              src="../../../bat-loader.gif"
               alt=""
               className="loader"
             />
@@ -37,6 +42,7 @@ export default function () {
         )}
         {!error && event && (
           <>
+            <AdminIcons resource='events'/>
             <h1>{event.name}</h1>
             <section className="main-single-page">
               <figure>
@@ -79,7 +85,16 @@ export default function () {
                     <strong>Creatures: </strong>
                     <ul className="creatures-ul">
                       {event.creatures.map((c) => {
-                        return <li key={c._id}><Link to={`/creatures/creature/${c._id}`} className="link">{c.name}</Link></li>;
+                        return (
+                          <li key={c._id}>
+                            <Link
+                              to={`/creatures/creature/${c._id}`}
+                              className="link"
+                            >
+                              {c.name}
+                            </Link>
+                          </li>
+                        );
                       })}
                     </ul>
                   </li>

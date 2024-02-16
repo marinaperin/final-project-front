@@ -28,7 +28,7 @@ export default function () {
       {error && <div className="error-msg">There was an error, try again in a few minutes.</div>}
       {!error && !events && (
         <div className="loader-container">
-          <img src="../../../public/bat-loader.gif" alt="" className="loader" />
+          <img src="../../../bat-loader.gif" alt="" className="loader" />
         </div>
       )}
       {!error && events && (

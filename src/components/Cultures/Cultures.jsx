@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "./cultures.scss";
 import axios from "../../lib/axios";
 import { useEffect, useState } from "react";
@@ -27,12 +27,12 @@ export default function () {
       });
   }, [n]);
 
-  return (
+  return (<>
     <main className="main-page">
       {error && <div className="error-msg">There was an error, try again in a few minutes.</div>}
       {!error && !cultures && (
         <div className="loader-container">
-          <img src="../../../public/bat-loader.gif" alt="" className="loader" />
+          <img src="../../../bat-loader.gif" alt="" className="loader" />
         </div>
       )}
       {!error && cultures && (
@@ -117,5 +117,7 @@ export default function () {
         </>
       )}
     </main>
+    <Outlet/>
+    </>
   );
 }

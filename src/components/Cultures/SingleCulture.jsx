@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import "./cultures.scss";
 import { Link } from "react-router-dom";
+import AdminIcons from "../AdminIcons";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -29,7 +30,7 @@ export default function () {
         {!error && !culture && (
           <div className="loader-container">
             <img
-              src="../../../public/bat-loader.gif"
+              src="../../../bat-loader.gif"
               alt=""
               className="loader"
             />
@@ -37,6 +38,7 @@ export default function () {
         )}
         {!error && culture && (
           <>
+          <AdminIcons resource='cultures'/>
             <h1>{culture.name}</h1>
             <section className="main-single-page">
               <figure>

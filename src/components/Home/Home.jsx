@@ -5,12 +5,12 @@ export default function () {
     <header>
       <figure className="home-figure">
         <img
-          src="../../public/desktop-background.jpeg"
+          src="../../desktop-background.jpeg"
           alt="background"
           className="home-background"
         />
         <img
-          src="../../public/vertical-bg-4.jpeg"
+          src="../../vertical-bg-4.jpeg"
           alt=""
           className="tablet-show"
         />
@@ -18,38 +18,38 @@ export default function () {
           Discover a magical world, where the most unexpected figures exist...
         </div>
         <img
-          src="../../public/boat-yokai.png"
+          src="../../boat-yokai.png"
           alt=""
           className="boat-yokai tablet-hide"
         />
-        <img src="../../public/carp.png" alt="" className="carp tablet-hide" />
+        <img src="../../carp.png" alt="" className="carp tablet-hide" />
         <img
-          src="../../public/sitting-yokais.png"
+          src="../../sitting-yokais.png"
           alt=""
           className="sitting-yokais tablet-hide"
         />
         <img
-          src="../../public/yokai2.png"
+          src="../../yokai2.png"
           alt=""
           className="running-yokais tablet-hide"
         />
         <img
-          src="../../public/yokai1.png"
+          src="../../yokai1.png"
           alt=""
           className="walking-yokai tablet-hide"
         />
         <img
-          src="../../public/flying-yokai.png"
+          src="../../flying-yokai.png"
           alt=""
           className="flying-yokai tablet-hide"
         />
         <img
-          src="../../public/female-yokai.png"
+          src="../../female-yokai.png"
           alt=""
           className="dropping-yokai tablet-hide"
         />
         <img
-          src="../../public/dragon.png"
+          src="../../dragon.png"
           alt=""
           className="dragon tablet-hide"
         />

@@ -7,7 +7,7 @@ export default function () {
         using the MERN stack: React, Node.js with Express and MongoDB. Directly
         connected with a self-made API.
       </div>
-      <img src="../../public/ghost.png" alt="" className="ghost"/>
+      <img src="../../ghost.png" alt="" className="ghost"/>
     </main>
   );
 }

@@ -5,7 +5,7 @@ import AddCulture from "./AddCulture";
 import AddEvent from "./AddEvent";
 
 export default function () {
-  const [selVal, setSelVal] = useState("events");
+  const [selVal, setSelVal] = useState("");
 
   return (
     <main className="main-page">

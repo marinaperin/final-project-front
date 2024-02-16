@@ -33,7 +33,7 @@ export default function () {
       )}
       {!error && !favorites && (
         <div className="loader-container">
-          <img src="../../../public/bat-loader.gif" alt="" className="loader" />
+          <img src="../../../bat-loader.gif" alt="" className="loader" />
         </div>
       )}
       {!error && favorites === undefined && (

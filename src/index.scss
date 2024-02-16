@@ -31,11 +31,11 @@ h1 {
   color: #766238;
 }
 
-.required{
+.required {
   color: indianred;
 }
 
-.disabled{
+.disabled {
   opacity: 50%;
 }
 
@@ -104,6 +104,31 @@ input {
       background-color: black;
       color: $gold-color;
     }
+  }
+}
+
+$delete-dialog-height: 14rem;
+$delete-dialog-width: 20rem;
+
+dialog[open] {
+  display: grid;
+  height: $delete-dialog-height;
+  width: $delete-dialog-width;
+  left: calc((100vw - $delete-dialog-width) / 2);
+  top: calc((100vh - $delete-dialog-height) / 2);
+  .close-modal-btn {
+    justify-self: right;
+    padding: 0.5rem;
+  }
+  .main-modal {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .false{
+    display: none;
   }
 }
 
@@ -222,8 +247,8 @@ input {
       background-color: transparent;
     }
   }
-  .favorite-name{
-    padding: .5rem;
+  .favorite-name {
+    padding: 0.5rem;
   }
 }
 
@@ -274,10 +299,13 @@ input {
     }
   }
   .icon-container {
-    .favorite-icon {
-      position: absolute;
-      right: 2rem;
-      top: 10rem;
+    position: absolute;
+    display: flex;
+    gap: 1rem;
+    right: 2rem;
+    top: 10rem;
+    .icon {
+      cursor: pointer;
     }
   }
 }
