@@ -2,9 +2,10 @@ import { useState } from "react";
 import "./add.scss";
 import AddCreature from "./AddCreature";
 import AddCulture from "./AddCulture";
+import AddEvent from "./AddEvent";
 
 export default function () {
-  const [selVal, setSelVal] = useState("cultures");
+  const [selVal, setSelVal] = useState("events");
 
   return (
     <main className="main-page">
@@ -22,8 +23,10 @@ export default function () {
           <option value="events">Events</option>
         </select>
       </header>
-      <section>{selVal === "creatures" && <AddCreature />}
-      {selVal === 'cultures' && <AddCulture/>}
+      <section>
+        {selVal === "creatures" && <AddCreature />}
+        {selVal === "cultures" && <AddCulture />}
+        {selVal === "events" && <AddEvent />}
       </section>
     </main>
   );

@@ -20,5 +20,10 @@
     border-radius: 2rem;
     outline: none;
     border: 1px solid $gold-color;
+    padding: .5rem;
+  }
+  .add-event-btn{
+    display: grid;
+    align-items: center;
   }
 }
