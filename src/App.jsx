@@ -16,6 +16,7 @@ import SingleEvent from "./components/Events/SingleEvent";
 import Search from "./components/Search/Search";
 import Favorites from "./components/Favorites/Favorites";
 import { useUser } from "./context/UserContext";
+import Add from "./components/Add/Add";
 
 function App() {
   const { user } = useUser();
@@ -43,7 +44,7 @@ function App() {
         {user && (
           <>
             <Route path="favorites" element={<Favorites />} />
-            <Route path="add" element />
+            <Route path="add" element={<Add />} />
           </>
         )}
         <Route path="search" element={<Search />} />

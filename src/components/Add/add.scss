@@ -1,0 +1,24 @@
+@import "../../index.scss";
+
+.add-form {
+  margin: 0.5rem;
+  margin-top: 1rem;
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+  label {
+    display: grid;
+    justify-items: center;
+    gap: 0.5rem;
+  }
+  textarea {
+    font: inherit;
+    border-radius: 2rem;
+    outline: none;
+    border: 1px solid $gold-color;
+  }
+}
