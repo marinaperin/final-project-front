@@ -67,6 +67,7 @@ export default function () {
             signUser();
             setInputValues({ email: "", password: "", confirmPassword: "" });
           }}
+          disabled={loading ? true : false}
         >
           SIGN UP
         </button>

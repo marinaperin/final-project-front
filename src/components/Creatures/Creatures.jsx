@@ -2,17 +2,18 @@ import axios from "../../lib/axios";
 import "./creatures.scss";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useQuery from "../../hooks/useQuery";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
   const [data, setData] = useState({});
   const [creatures, setCreatures] = useState();
   const [error, setError] = useState(false);
-  const [n, setN] = useState(1);
+  const query = useQuery();
 
   useEffect(() => {
     axios
-      .get(`${VITE_API_URL}/creatures?page=${n}`)
+      .get(`${VITE_API_URL}/creatures?page=${query ? query : 1}`)
       .then((res) => {
         setCreatures(res.data.results);
         setData({ ...res.data });
@@ -21,11 +22,15 @@ export default function () {
         console.error(err);
         setError(true);
       });
-  }, [n]);
+  }, [query]);
 
   return (
     <main className="main-page">
-      {error && <div className="error-msg">There was an error, try again in a few minutes.</div>}
+      {error && (
+        <div className="error-msg">
+          There was an error, try again in a few minutes.
+        </div>
+      )}
       {!error && !creatures && (
         <div className="loader-container">
           <img src="../../../public/bat-loader.gif" alt="" className="loader" />
@@ -48,25 +53,13 @@ export default function () {
               </p>
             </div>
             <div className="pages-btn">
-              <button
-                onClick={() => {
-                  setN(1);
-                }}
-              >
+              <button>
                 <Link to="/creatures">1</Link>
               </button>
-              <button
-                onClick={() => {
-                  setN(2);
-                }}
-              >
+              <button>
                 <Link to="/creatures?page=2">2</Link>
               </button>
-              <button
-                onClick={() => {
-                  setN(3);
-                }}
-              >
+              <button>
                 <Link to="/creatures?page=3">3</Link>
               </button>
             </div>

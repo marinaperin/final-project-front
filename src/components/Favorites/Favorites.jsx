@@ -14,7 +14,6 @@ export default function () {
       axios
         .get(`${VITE_API_URL}/user/${user._id}`)
         .then((res) => {
-          console.log(res);
           setFavorites(res.data);
         })
         .catch((err) => {
@@ -24,27 +23,28 @@ export default function () {
     }
   }, []);
 
-  console.log(user, favorites);
   return (
     <main className="main-page">
       <h1>Favorites</h1>
       {error && (
-          <div className="error-msg">
-            There was an error, try again in a few minutes.
-          </div>
-        )}
-        {!error && !favorites && (
-          <div className="loader-container">
-            <img
-              src="../../../public/bat-loader.gif"
-              alt=""
-              className="loader"
-            />
-          </div>
-        )}
-      {!error && favorites && favorites.length === 0 && <div>No favorites yet</div>}
+        <div className="error-msg">
+          There was an error, try again in a few minutes.
+        </div>
+      )}
+      {!error && !favorites && (
+        <div className="loader-container">
+          <img src="../../../public/bat-loader.gif" alt="" className="loader" />
+        </div>
+      )}
+      {!error && favorites === undefined && (
+        <div>No favorites yet</div>
+      )}
+      {!error && favorites && favorites.length < 0 && (
+        <div>No favorites yet</div>
+      )}
       <section className="resources-grid">
-        {!error && favorites &&
+        {!error &&
+          favorites &&
           favorites.length > 0 &&
           favorites.map((f, i) => {
             return (

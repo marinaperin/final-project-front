@@ -1,5 +1,5 @@
-import axios from "../lib/axios";
-import "../index.scss";
+import axios from "../../lib/axios";
+import "../../index.scss";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 const { VITE_API_URL } = import.meta.env;
@@ -102,8 +102,7 @@ export default function () {
                   >
                     <div>
                       <h3>{r.name}</h3>
-                      <div className="intro-card">
-                      </div>
+                      <div className="intro-card"></div>
                     </div>
                     <div className="lower-card">
                       <figure>

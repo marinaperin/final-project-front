@@ -45,6 +45,7 @@ export default function () {
               logIn(email, password)
               setInputValues({ email: "", password: "" });
             }}
+            disabled={loading ? true : false}
           >
             LOG IN
           </button>

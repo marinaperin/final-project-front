@@ -2,8 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
-import About from "./components/About";
-import NotFound from "./components/NotFound";
+import About from "./components/About/About";
+import NotFound from "./components/NotFound/NotFound";
 import SignUp from "./components/SignUp-LogIn/SignUp";
 import LogIn from "./components/SignUp-LogIn/LogIn";
 import Creatures from "./components/Creatures/Creatures";
@@ -13,10 +13,13 @@ import InnerNavbar from "./components/Cultures/InnerNavbar";
 import SingleCulture from "./components/Cultures/SingleCulture";
 import Events from "./components/Events/Events";
 import SingleEvent from "./components/Events/SingleEvent";
-import Search from "./components/Search";
+import Search from "./components/Search/Search";
 import Favorites from "./components/Favorites/Favorites";
+import { useUser } from "./context/UserContext";
 
 function App() {
+  const { user } = useUser();
+
   return (
     <>
       <Navbar />
@@ -37,8 +40,12 @@ function App() {
         </Route>
         <Route path="sign-up" element={<SignUp />} />
         <Route path="log-in" element={<LogIn />} />
-        <Route path="favorites" element={<Favorites/>} />
-        <Route path="add" element />
+        {user && (
+          <>
+            <Route path="favorites" element={<Favorites />} />
+            <Route path="add" element />
+          </>
+        )}
         <Route path="search" element={<Search />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

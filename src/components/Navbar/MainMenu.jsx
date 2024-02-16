@@ -5,7 +5,7 @@ import { useUser } from "../../context/UserContext";
 export default function (cssClass, isOpen) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const { user, logOut } = useUser();
+  const { user, logOut, loading } = useUser();
 
   return (
     <>
@@ -105,6 +105,7 @@ export default function (cssClass, isOpen) {
             onClick={() => {
               logOut();
             }}
+            disabled={loading ? true : false}
           >
             LOG OUT
           </button>

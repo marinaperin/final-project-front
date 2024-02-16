@@ -13,7 +13,25 @@ export default function () {
   const [creature, setCreature] = useState();
   const [error, setError] = useState(false);
   const [patchError, setPatchError] = useState(null);
-  const { user, setUser } = useUser();
+  const { user, setUser, loading, setLoading } = useUser();
+
+  const patchFavorites = (action, msg) => {
+    setLoading(true);
+    axios
+      .patch(`${VITE_API_URL}/user/favorites`, {
+        id: id,
+        action: action,
+        userId: user._id,
+      })
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+        setPatchError(msg);
+      })
+      .finally(() => setLoading(false));
+  };
 
   useEffect(() => {
     axios
@@ -46,45 +64,29 @@ export default function () {
         )}
         {!error && creature && (
           <>
-            {user && user.user_type === "user" && (
+            {" "}
+            {/* Logic that allows user to remove and add creatures to favorites */}
+            {user && !loading && user.user_type === "user" && (
               <div className="icon-container">
                 <p className="favorite-icon">
                   {!user.favorites.includes(id) ? (
                     <FaRegStar
                       onClick={() => {
-                        axios
-                          .patch(`${VITE_API_URL}/user/favorites`, {
-                            id: id,
-                            action: "add",
-                            userId: user._id,
-                          })
-                          .then((res) => {
-                            setUser(res.data);
-                          })
-                          .catch((err) => {
-                            console.error(err);
-                            setPatchError("Issue adding to favorites");
-                          });
+                        patchFavorites("add", "Issue adding to favorites");
                       }}
                       className="icon"
+                      title="Add to Favorites"
                     />
                   ) : (
                     <FaStar
                       onClick={() => {
-                        axios
-                          .patch(`${VITE_API_URL}/user/favorites`, {
-                            id: id,
-                            action: "remove",
-                            userId: user._id,
-                          })
-                          .then((res) => {
-                            setUser(res.data);
-                          })
-                          .catch((err) => {
-                            console.error(err);
-                            setPatchError("Issue removing from favorites");
-                          });
+                        patchFavorites(
+                          "remove",
+                          "Issue removing from favorites"
+                        );
                       }}
+                      className="icon"
+                      title="Remove from Favorites"
                     />
                   )}
                 </p>

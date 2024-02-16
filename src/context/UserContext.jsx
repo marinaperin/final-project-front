@@ -49,7 +49,9 @@ export const UserProvider = ({ children }) => {
   };
 
   const logOut = () => {
+    setLoading(true);
     setUser(null);
+    setLoading(false);
   };
 
   const value = {
@@ -60,6 +62,7 @@ export const UserProvider = ({ children }) => {
     setUser,
     error,
     loading,
+    setLoading,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
