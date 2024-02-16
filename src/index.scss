@@ -31,6 +31,14 @@ h1 {
   color: #766238;
 }
 
+.required{
+  color: indianred;
+}
+
+.disabled{
+  opacity: 50%;
+}
+
 .tablet-hide {
   @media (max-width: 900px) {
     display: none;

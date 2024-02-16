@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "../../lib/axios";
+import { useUser } from "../../context/UserContext";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -9,6 +10,8 @@ export default function () {
   const [creatureType, setCreatureType] = useState("");
   const [creatureTrait, setCreatureTrait] = useState("");
   const [haveEvent, setHaveEvent] = useState(false);
+  const [complete, setComplete] = useState(false);
+  const { loading, setLoading } = useUser();
   const [formData, setFormData] = useState({
     name: "",
     culture: "",
@@ -46,10 +49,13 @@ export default function () {
 
   return (
     <>
-      {!error && cultures && (
+      {complete && <div>Creature created successfully</div>}
+      {!error && cultures && !complete && (
         <div className="add-form">
           <label>
-            <span>Name: </span>
+            <span>
+              <span className="required">*</span> Name:{" "}
+            </span>
             <input
               type="text"
               value={formData.name}
@@ -59,7 +65,9 @@ export default function () {
             />
           </label>
           <label>
-            <span>Culture: </span>
+            <span>
+              <span className="required">*</span> Culture:{" "}
+            </span>
             <select
               value={formData.culture}
               onChange={(e) =>
@@ -76,7 +84,9 @@ export default function () {
             </select>
           </label>
           <label>
-            <span>Type: </span>
+            <span>
+              <span className="required">*</span> Type:{" "}
+            </span>
             <div>
               <input
                 type="text"
@@ -254,13 +264,16 @@ export default function () {
           <div>
             <button
               onClick={() => {
+                setLoading(true);
                 axios
                   .post(`${VITE_API_URL}/creatures`, formData)
                   .then((res) => {
-                    console.log(res);
+                    setComplete(true);
                   })
-                  .catch((err) => console.error(err));
+                  .catch((err) => console.error(err))
+                  .finally(() => setLoading(false));
               }}
+              disabled={loading ? true : false}
             >
               ADD
             </button>
