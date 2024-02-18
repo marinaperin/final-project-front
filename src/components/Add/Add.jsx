@@ -8,14 +8,15 @@ export default function () {
   const [selVal, setSelVal] = useState("");
 
   return (
-    <main className="main-page">
-      <header>
+    <main >
+      <header className="main-page">
         <h1>Add</h1>
         <select
           value={selVal}
           onChange={(e) => {
             setSelVal(e.target.value);
           }}
+          className="add-select"
         >
           <option value="">Choose</option>
           <option value="creatures">Creatures</option>

@@ -14,7 +14,11 @@ export default function ({ cssClass, isOpen }) {
         <NavLink
           to="/about"
           onClick={() => {
-            isOpen(false);
+            if (cssClass === "tablet-hide") {
+              return;
+            } else {
+              isOpen(false);
+            }
           }}
         >
           About
@@ -24,7 +28,11 @@ export default function ({ cssClass, isOpen }) {
         <NavLink
           to="/search"
           onClick={() => {
-            isOpen(false);
+            if (cssClass === "tablet-hide") {
+              return;
+            } else {
+              isOpen(false);
+            }
           }}
         >
           Search
@@ -34,19 +42,23 @@ export default function ({ cssClass, isOpen }) {
         <NavLink
           to="/creatures"
           onClick={() => {
-            isOpen(false);
+            if (cssClass === "tablet-hide") {
+              return;
+            } else {
+              isOpen(false);
+            }
           }}
         >
           Creatures/Entities/Deities
         </NavLink>
       </li>
       <li
-        className={cssClass}
+        className={`cssClass cultures-navlink`}
         onClick={() => {
           setOpen(!open);
         }}
       >
-        <NavLink className='cultures-navlink'>
+        <NavLink to="/cultures">
           Cultures <IoIosArrowDown />
         </NavLink>
         {open && (
@@ -55,7 +67,11 @@ export default function ({ cssClass, isOpen }) {
               <Link
                 to={`/cultures`}
                 onClick={() => {
-                  isOpen(false);
+                  if (cssClass === "tablet-hide") {
+                    return;
+                  } else {
+                    isOpen(false);
+                  }
                 }}
               >
                 Cultures
@@ -65,7 +81,11 @@ export default function ({ cssClass, isOpen }) {
               <Link
                 to={`/cultures/events`}
                 onClick={() => {
-                  isOpen(false);
+                  if (cssClass === "tablet-hide") {
+                    return;
+                  } else {
+                    isOpen(false);
+                  }
                 }}
               >
                 Events
@@ -80,7 +100,11 @@ export default function ({ cssClass, isOpen }) {
             <Link
               to={`/favorites`}
               onClick={() => {
-                isOpen(false);
+                if (cssClass === "tablet-hide") {
+                  return;
+                } else {
+                  isOpen(false);
+                }
               }}
             >
               Favorites
@@ -94,7 +118,11 @@ export default function ({ cssClass, isOpen }) {
             <Link
               to={`/add`}
               onClick={() => {
-                isOpen(false);
+                if (cssClass === "tablet-hide") {
+                  return;
+                } else {
+                  isOpen(false);
+                }
               }}
             >
               Add
@@ -107,8 +135,12 @@ export default function ({ cssClass, isOpen }) {
           <button
             onClick={() => {
               logOut();
-              isOpen(false);
               navigate("/");
+              if (cssClass === "tablet-hide") {
+                return;
+              } else {
+                isOpen(false);
+              }
             }}
             disabled={loading ? true : false}
           >
@@ -121,7 +153,11 @@ export default function ({ cssClass, isOpen }) {
           <button
             onClick={() => {
               navigate("/sign-up");
-              isOpen(false);
+              if (cssClass === "tablet-hide") {
+                return;
+              } else {
+                isOpen(false);
+              }
             }}
           >
             SIGN UP
@@ -129,7 +165,11 @@ export default function ({ cssClass, isOpen }) {
           <button
             onClick={() => {
               navigate("/log-in");
-              isOpen(false);
+              if (cssClass === "tablet-hide") {
+                return;
+              } else {
+                isOpen(false);
+              }
             }}
           >
             LOG IN

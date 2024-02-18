@@ -25,53 +25,65 @@ export default function () {
       {loading && <div>Loading...</div>}
       {error && <div>{error}</div>}
       {confirmPwdError && <div>{confirmPwdError}</div>}
-      {!user && <section>
-        <label>
-          Email:
-          <input
-            type="email"
-            required
-            value={inputValues.email}
-            onChange={(e) => {
-              setInputValues({ ...inputValues, email: e.target.value });
+      {!user && (
+        <section>
+          <label>
+            Email:
+            <input
+              type="email"
+              required
+              value={inputValues.email}
+              onChange={(e) => {
+                setInputValues({ ...inputValues, email: e.target.value });
+              }}
+            />
+          </label>
+          <label>
+            Password:
+            <input
+              type="password"
+              required
+              value={inputValues.password}
+              onChange={(e) => {
+                setInputValues({ ...inputValues, password: e.target.value });
+              }}
+            />
+          </label>
+          <label>
+            Confirm password:
+            <input
+              type="password"
+              required
+              value={inputValues.confirmPassword}
+              onChange={(e) => {
+                setInputValues({
+                  ...inputValues,
+                  confirmPassword: e.target.value,
+                });
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  signUser();
+                  setInputValues({
+                    email: "",
+                    password: "",
+                    confirmPassword: "",
+                  });
+                }
+              }}
+            />
+          </label>
+          <button
+            onClick={() => {
+              signUser();
+              setInputValues({ email: "", password: "", confirmPassword: "" });
             }}
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            required
-            value={inputValues.password}
-            onChange={(e) => {
-              setInputValues({ ...inputValues, password: e.target.value });
-            }}
-          />
-        </label>
-        <label>
-          Confirm password:
-          <input
-            type="password"
-            required
-            value={inputValues.confirmPassword}
-            onChange={(e) => {
-              setInputValues({
-                ...inputValues,
-                confirmPassword: e.target.value,
-              });
-            }}
-          />
-        </label>
-        <button
-          onClick={() => {
-            signUser();
-            setInputValues({ email: "", password: "", confirmPassword: "" });
-          }}
-          disabled={loading ? true : false}
-        >
-          SIGN UP
-        </button>
-      </section>}
+            disabled={loading ? true : false}
+          >
+            SIGN UP
+          </button>
+        </section>
+      )}
       {user && <div>Account created successfully</div>}
     </main>
   );

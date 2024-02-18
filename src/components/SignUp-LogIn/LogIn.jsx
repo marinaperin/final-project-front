@@ -38,11 +38,17 @@ export default function () {
               onChange={(e) => {
                 setInputValues({ ...inputValues, password: e.target.value });
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  logIn(email, password);
+                  setInputValues({ email: "", password: "" });
+                }
+              }}
             />
           </label>
           <button
             onClick={() => {
-              logIn(email, password)
+              logIn(email, password);
               setInputValues({ email: "", password: "" });
             }}
             disabled={loading ? true : false}
@@ -51,7 +57,7 @@ export default function () {
           </button>
         </section>
       )}
-      {user && <Navigate to='/'/>}
+      {user && <Navigate to="/" />}
     </main>
   );
 }

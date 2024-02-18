@@ -30,7 +30,7 @@ export default function ({ isOpen, setIsOpen, resource }) {
           </button>
         </div>
         <div className="main-modal">
-          {msg && <div>
+          {msg && <div className="modal-msg">
             <h4>{msg}</h4>
             <p>Redirecting Home...</p>
           </div>}

@@ -1,5 +1,9 @@
 @import "../../index.scss";
 
+
+.add-select{
+  margin-bottom: 1rem;
+}
 .add-form {
   margin: 0.5rem;
   margin-top: 1rem;
@@ -18,12 +22,27 @@
   textarea {
     font: inherit;
     border-radius: 2rem;
+    height: 4rem;
+    resize: vertical;
     outline: none;
     border: 1px solid $gold-color;
     padding: .5rem;
   }
-  .add-event-btn{
-    display: grid;
-    align-items: center;
+  .add-btn{
+    position: fixed;
+    top: calc((100vh - 8rem));
+    right: 10%;
+    @media (max-width: 1280px) {
+      right: 5%;
+    }
+    @media (max-width: 1140px) {
+      right: 3%;
+    }
+    @media (max-width: 800px) {
+      right: 10%;
+    }
+    @media (max-width: 640px) {
+      right: 5%;
+    }
   }
 }

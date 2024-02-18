@@ -11,6 +11,36 @@ export default function () {
   const [resource, setResource] = useState();
   const [error, setError] = useState(false);
 
+  const search = () => {
+    axios
+      .get(
+        `${VITE_API_URL}/${selVal}${
+          /* Logic to change the request's address but in ternary operators
+                            if(selVal === 'creatures'){
+                                url = `?${creatureSelect}=${inputVal}`;
+                            }else if(selVal === 'cultures'){
+                                url = `?name=${inputVal}+culture`;
+                            }else{
+                                url = `?name=${inputVal}`;
+                            }
+                        */
+          selVal === "creatures"
+            ? `?${creatureSelect}=${inputVal}`
+            : selVal === "cultures"
+            ? `?name=${inputVal}+culture`
+            : `?name=${inputVal}`
+        }`
+      )
+      .then((res) => {
+        setResource(res.data);
+        setInputVal("");
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(true);
+      });
+  };
+
   return (
     <>
       <main className="search-page">
@@ -46,37 +76,16 @@ export default function () {
               onChange={(e) => {
                 setInputVal(e.target.value);
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  search();
+                }
+              }}
             />
             <div className="btn-container">
               <button
                 onClick={() => {
-                  axios
-                    .get(
-                      `${VITE_API_URL}/${selVal}${
-                        /* Logic to change the request's address but in ternary operators
-                            if(selVal === 'creatures'){
-                                url = `?${creatureSelect}=${inputVal}`;
-                            }else if(selVal === 'cultures'){
-                                url = `?name=${inputVal}+culture`;
-                            }else{
-                                url = `?name=${inputVal}`;
-                            }
-                        */
-                        selVal === "creatures"
-                          ? `?${creatureSelect}=${inputVal}`
-                          : selVal === "cultures"
-                          ? `?name=${inputVal}+culture`
-                          : `?name=${inputVal}`
-                      }`
-                    )
-                    .then((res) => {
-                      setResource(res.data);
-                      setInputVal("");
-                    })
-                    .catch((err) => {
-                      console.error(err);
-                      setError(true);
-                    });
+                  search();
                 }}
               >
                 SEARCH

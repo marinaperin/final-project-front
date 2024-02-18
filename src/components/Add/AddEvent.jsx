@@ -19,6 +19,17 @@ export default function () {
     culture: "",
   });
 
+  const postEvent = () => {
+    setLoading(true);
+    axios
+      .post(`${VITE_API_URL}/events`, formData)
+      .then((res) => {
+        setComplete(true);
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  };
+
   useEffect(() => {
     axios
       .get(`${VITE_API_URL}/cultures`)
@@ -152,19 +163,13 @@ export default function () {
               }
             ></textarea>
           </label>
-          <div className="add-event-btn">
+          <div>
             <button
               onClick={() => {
-                setLoading(true);
-                axios
-                  .post(`${VITE_API_URL}/events`, formData)
-                  .then((res) => {
-                    setComplete(true);
-                  })
-                  .catch((err) => console.error(err))
-                  .finally(() => setLoading(false));
+                postEvent();
               }}
               disabled={loading ? true : false}
+              className="add-btn"
             >
               ADD
             </button>

@@ -15,8 +15,9 @@ import Events from "./components/Events/Events";
 import SingleEvent from "./components/Events/SingleEvent";
 import Search from "./components/Search/Search";
 import Favorites from "./components/Favorites/Favorites";
-import { useUser } from "./context/UserContext";
 import Add from "./components/Add/Add";
+import Footer from "./components/Footer";
+import { useUser } from "./context/UserContext";
 
 function App() {
   const { user } = useUser();
@@ -52,6 +53,7 @@ function App() {
         <Route path="search" element={<Search />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </>
   );
 }

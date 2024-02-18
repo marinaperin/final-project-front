@@ -25,6 +25,17 @@ export default function () {
     legends: "",
   });
 
+  const postCreature = () => {
+    setLoading(true);
+    axios
+      .post(`${VITE_API_URL}/creatures`, formData)
+      .then((res) => {
+        setComplete(true);
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  };
+
   useEffect(() => {
     axios
       .get(`${VITE_API_URL}/cultures`)
@@ -264,16 +275,10 @@ export default function () {
           <div>
             <button
               onClick={() => {
-                setLoading(true);
-                axios
-                  .post(`${VITE_API_URL}/creatures`, formData)
-                  .then((res) => {
-                    setComplete(true);
-                  })
-                  .catch((err) => console.error(err))
-                  .finally(() => setLoading(false));
+                postCreature();
               }}
               disabled={loading ? true : false}
+              className="add-btn"
             >
               ADD
             </button>
