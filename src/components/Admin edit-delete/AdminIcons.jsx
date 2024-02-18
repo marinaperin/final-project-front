@@ -1,7 +1,7 @@
 import { MdModeEdit } from "react-icons/md";
 import { FaTrashCan } from "react-icons/fa6";
 import { useState } from "react";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../../context/UserContext";
 import DeleteModal from "./DeleteModal";
 
 export default function ({resource}) {

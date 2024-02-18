@@ -16,7 +16,7 @@ import SingleEvent from "./components/Events/SingleEvent";
 import Search from "./components/Search/Search";
 import Favorites from "./components/Favorites/Favorites";
 import Add from "./components/Add/Add";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer";
 import { useUser } from "./context/UserContext";
 
 function App() {

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import axios from "../lib/axios";
+import axios from "../../lib/axios";
 import { useNavigate, useParams } from "react-router-dom";
 const { VITE_API_URL } = import.meta.env;
 

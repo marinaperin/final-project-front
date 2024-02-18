@@ -3,6 +3,9 @@ import "./events.scss";
 import axios from "../../lib/axios";
 import { Link, Outlet } from "react-router-dom";
 import useQuery from "../../hooks/useQuery";
+import Loader from "../Error & Loader/Loader";
+import ErrorMsg from "../Error & Loader/ErrorMsg";
+import Pagination from "../PagesButtons/Pagination";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -26,60 +29,48 @@ export default function () {
 
   return (
     <>
-    <main className="main-page">
-      {error && (
-        <div className="error-msg">
-          There was an error, try again in a few minutes.
-        </div>
-      )}
-      {!error && !events && (
-        <div className="loader-container">
-          <img src="../../../bat-loader.gif" alt="" className="loader" />
-        </div>
-      )}
-      {!error && events && (
-        <>
-          <header>
-            <h1>Events and Rituals</h1>
-            <div className="events-info">
-              <p>
-                {data.total_results}{" "}
-                {data.total_results === 1 ? "result" : "results"} in{" "}
-                {data.total_pages} {data.total_pages === 1 ? "page" : "pages"}
-              </p>
-            </div>
-            <div className="pages-btn">
-              <button>
-                <Link to="/events?page=1">1</Link>
-              </button>
-            </div>
-          </header>
-          <section className="resources-grid">
-            {events.map((e, i) => {
-              return (
-                <div key={`${e.name} + ${i}`} className="resource-card">
-                  <Link to={`event/${e._id}`}>
-                    <div>
-                      <h3>{e.name}</h3>
-                      <div className="intro-card">
-                        <p>{e.type}</p>
-                        <p>{e.culture.country}</p>
+      <main className="main-page">
+        {error && <ErrorMsg />}
+        {!error && !events && <Loader />}
+        {!error && events && (
+          <>
+            <header>
+              <h1>Events and Rituals</h1>
+              <div className="events-info">
+                <p>
+                  {data.total_results}{" "}
+                  {data.total_results === 1 ? "result" : "results"} in{" "}
+                  {data.total_pages} {data.total_pages === 1 ? "page" : "pages"}
+                </p>
+              </div>
+              <Pagination resource="events" pages={data.total_pages} />
+            </header>
+            <section className="resources-grid">
+              {events.map((e, i) => {
+                return (
+                  <div key={`${e.name} + ${i}`} className="resource-card">
+                    <Link to={`event/${e._id}`}>
+                      <div>
+                        <h3>{e.name}</h3>
+                        <div className="intro-card">
+                          <p>{e.type}</p>
+                          <p>{e.culture.country}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="lower-card">
-                      <figure>
-                        <img src={e.img} alt={e.name} />
-                      </figure>
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
-          </section>
-        </>
-      )}
-    </main>
-    <Outlet/>
+                      <div className="lower-card">
+                        <figure>
+                          <img src={e.img} alt={e.name} />
+                        </figure>
+                      </div>
+                    </Link>
+                  </div>
+                );
+              })}
+            </section>
+          </>
+        )}
+      </main>
+      <Outlet />
     </>
   );
 }

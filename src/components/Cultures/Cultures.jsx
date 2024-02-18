@@ -4,6 +4,9 @@ import axios from "../../lib/axios";
 import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import useQuery from "../../hooks/useQuery";
+import Loader from "../Error & Loader/Loader";
+import ErrorMsg from "../Error & Loader/ErrorMsg";
+import Pagination from "../PagesButtons/Pagination";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -33,14 +36,10 @@ export default function () {
     <>
       <main className="main-page">
         {error && (
-          <div className="error-msg">
-            There was an error, try again in a few minutes.
-          </div>
+          <ErrorMsg/>
         )}
         {!error && !cultures && (
-          <div className="loader-container">
-            <img src="../../../bat-loader.gif" alt="" className="loader" />
-          </div>
+          <Loader/>
         )}
         {!error && cultures && (
           <>
@@ -85,14 +84,7 @@ export default function () {
                   </select>
                 </p>
               </div>
-              <div className="pages-btn">
-                <button>
-                  <Link to="/cultures">1</Link>
-                </button>
-                <button>
-                  <Link to="/cultures?page=2">2</Link>
-                </button>
-              </div>
+              <Pagination resource='cultures' pages={data.total_pages}/>
             </header>
             <section className="resources-grid">
               {showedCultures.map((c, i) => {

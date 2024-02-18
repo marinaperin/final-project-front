@@ -1,8 +1,11 @@
 import axios from "../../lib/axios";
 import "./creatures.scss";
 import { useEffect, useState } from "react";
+import Loader from "../Error & Loader/Loader";
 import { Link } from "react-router-dom";
 import useQuery from "../../hooks/useQuery";
+import ErrorMsg from "../Error & Loader/ErrorMsg";
+import Pagination from "../PagesButtons/Pagination";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -26,16 +29,8 @@ export default function () {
 
   return (
     <main className="main-page">
-      {error && (
-        <div className="error-msg">
-          There was an error, try again in a few minutes.
-        </div>
-      )}
-      {!error && !creatures && (
-        <div className="loader-container">
-          <img src="../../../bat-loader.gif" alt="" className="loader" />
-        </div>
-      )}
+      {error && <ErrorMsg />}
+      {!error && !creatures && <Loader />}
       {!error && creatures && (
         <>
           <header>
@@ -52,17 +47,7 @@ export default function () {
                 {data.total_pages} {data.total_pages === 1 ? "page" : "pages"}
               </p>
             </div>
-            <div className="pages-btn">
-              <button>
-                <Link to="/creatures">1</Link>
-              </button>
-              <button>
-                <Link to="/creatures?page=2">2</Link>
-              </button>
-              <button>
-                <Link to="/creatures?page=3">3</Link>
-              </button>
-            </div>
+            <Pagination resource="creatures" pages={data.total_pages} />
           </header>
           <section className="resources-grid">
             {creatures.map((c, i) => {

@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import "./cultures.scss";
 import { Link } from "react-router-dom";
-import AdminIcons from "../AdminIcons";
+import AdminIcons from "../Admin edit-delete/AdminIcons";
+import Loader from "../Error & Loader/Loader";
+import ErrorMsg from "../Error & Loader/ErrorMsg";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -26,19 +28,11 @@ export default function () {
   return (
     <>
       <main className="single-resource">
-        {error && <div className="error-msg">There was an error, try again in a few minutes.</div>}
-        {!error && !culture && (
-          <div className="loader-container">
-            <img
-              src="../../../bat-loader.gif"
-              alt=""
-              className="loader"
-            />
-          </div>
-        )}
+        {error && <ErrorMsg />}
+        {!error && !culture && <Loader />}
         {!error && culture && (
           <>
-          <AdminIcons resource='cultures'/>
+            <AdminIcons resource="cultures" />
             <h1>{culture.name}</h1>
             <section className="main-single-page">
               <figure>
@@ -58,18 +52,38 @@ export default function () {
                     <strong>Creatures: </strong>
                     <ul className="creatures-ul">
                       {culture.creatures.map((c) => {
-                        return <li key={c._id}><Link to={`/creatures/creature/${c._id}`} className='link'>{c.name}</Link></li>;
+                        return (
+                          <li key={c._id}>
+                            <Link
+                              to={`/creatures/creature/${c._id}`}
+                              className="link"
+                            >
+                              {c.name}
+                            </Link>
+                          </li>
+                        );
                       })}
                     </ul>
                   </li>
-                 {culture.events.length > 0 && <li>
-                    <strong>Events/Rituals: </strong>
-                    <ul className="creatures-ul">
-                      {culture.events.map((c) => {
-                        return <li key={c._id}><Link to={`/cultures/events/event/${c._id}`} className='link'>{c.name}</Link></li>;
-                      })}
-                    </ul>
-                  </li>}
+                  {culture.events.length > 0 && (
+                    <li>
+                      <strong>Events/Rituals: </strong>
+                      <ul className="creatures-ul">
+                        {culture.events.map((c) => {
+                          return (
+                            <li key={c._id}>
+                              <Link
+                                to={`/cultures/events/event/${c._id}`}
+                                className="link"
+                              >
+                                {c.name}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </li>
+                  )}
                   <li>
                     <strong>Religions: </strong>
                     <ul className="nested-ul">

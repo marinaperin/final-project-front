@@ -184,7 +184,7 @@ export default function () {
             />
           </label>
           <label>
-            <span>Event (one creature per event): </span>
+            <span><span className="required">*</span> Event (one creature per event): </span>
             {!haveEvent && (
               <>
                 <div>

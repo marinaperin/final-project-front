@@ -1,6 +1,7 @@
 import axios from "../../lib/axios";
 import "../../index.scss";
 import { useState } from "react";
+import ErrorMsg from "../Error & Loader/ErrorMsg";
 import { Link } from "react-router-dom";
 const { VITE_API_URL } = import.meta.env;
 
@@ -94,11 +95,7 @@ export default function () {
           </div>
         </header>
         <section className="resources-grid">
-          {error && (
-            <div className="error-msg">
-              There was an error, try searching again.
-            </div>
-          )}
+          {error && <ErrorMsg />}
           {!error &&
             resource &&
             resource.map((r, i) => {

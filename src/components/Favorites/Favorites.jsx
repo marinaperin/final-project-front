@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
 import axios from "../../lib/axios";
 import { Link } from "react-router-dom";
+import Loader from "../Error & Loader/Loader";
+import ErrorMsg from "../Error & Loader/ErrorMsg";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -27,14 +29,10 @@ export default function () {
     <main className="main-page">
       <h1>Favorites</h1>
       {error && (
-        <div className="error-msg">
-          There was an error, try again in a few minutes.
-        </div>
+        <ErrorMsg/>
       )}
       {!error && !favorites && (
-        <div className="loader-container">
-          <img src="../../../bat-loader.gif" alt="" className="loader" />
-        </div>
+        <Loader/>
       )}
       {!error && favorites === undefined && (
         <div>No favorites yet</div>

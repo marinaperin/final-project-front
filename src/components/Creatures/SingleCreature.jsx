@@ -6,7 +6,9 @@ import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
-import AdminIcons from "../AdminIcons";
+import AdminIcons from "../Admin edit-delete/AdminIcons";
+import Loader from "../Error & Loader/Loader";
+import ErrorMsg from "../Error & Loader/ErrorMsg";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -50,18 +52,10 @@ export default function () {
     <>
       <main className="single-resource">
         {error && (
-          <div className="error-msg">
-            There was an error, try again in a few minutes.
-          </div>
+          <ErrorMsg/>
         )}
         {!error && !creature && (
-          <div className="loader-container">
-            <img
-              src="../../../bat-loader.gif"
-              alt=""
-              className="loader"
-            />
-          </div>
+          <Loader/>
         )}
         {!error && creature && (
           <>

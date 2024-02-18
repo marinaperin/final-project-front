@@ -3,7 +3,9 @@ import "./events.scss";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link, Outlet } from "react-router-dom";
-import AdminIcons from "../AdminIcons";
+import AdminIcons from "../Admin edit-delete/AdminIcons";
+import Loader from "../Error & Loader/Loader";
+import ErrorMsg from "../Error & Loader/ErrorMsg";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -27,18 +29,10 @@ export default function () {
     <>
       <main className="single-resource">
         {error && (
-          <div className="error-msg">
-            There was an error, try again in a few minutes.
-          </div>
+          <ErrorMsg/>
         )}
         {!error && !event && (
-          <div className="loader-container">
-            <img
-              src="../../../bat-loader.gif"
-              alt=""
-              className="loader"
-            />
-          </div>
+          <Loader/>
         )}
         {!error && event && (
           <>
