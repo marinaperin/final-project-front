@@ -34,7 +34,7 @@ function App() {
         <Route path="cultures" element={<InnerNavbar />}>
           <Route index element={<Cultures />} />
           <Route path="culture/:id" element={<SingleCulture />} />
-          <Route path="/cultures/events">
+          <Route path="events">
             <Route index element={<Events />} />
             <Route path="event/:id" element={<SingleEvent />} />
           </Route>
@@ -44,7 +44,9 @@ function App() {
         {user && (
           <>
             <Route path="favorites" element={<Favorites />} />
-            <Route path="add" element={<Add />} />
+            {user.user_type === "admin" && (
+              <Route path="add" element={<Add />} />
+            )}
           </>
         )}
         <Route path="search" element={<Search />} />

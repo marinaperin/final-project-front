@@ -82,8 +82,9 @@ input {
 }
 
 .error-msg {
-  margin-block: 1rem;
+  margin: 2rem 1rem;
   color: indianred;
+  text-align: center;
 }
 .loader-container {
   display: flex;
@@ -127,7 +128,7 @@ dialog[open] {
     gap: 1rem;
     padding: 1rem;
   }
-  .false{
+  .false {
     display: none;
   }
 }
@@ -152,6 +153,9 @@ dialog[open] {
   div {
     padding: 3rem;
     width: 50%;
+    @media (max-width: 640px) {
+      width: 90%;
+    }
   }
   img {
     width: 40%;
@@ -163,6 +167,7 @@ dialog[open] {
 .search-page {
   display: grid;
   justify-items: center;
+  padding: 2rem;
   header {
     display: grid;
     justify-items: center;
@@ -258,9 +263,10 @@ dialog[open] {
   display: grid;
   justify-items: center;
   gap: 1rem;
-  padding: 3rem;
+  padding: 2rem;
   .main-single-page {
     display: grid;
+    justify-items: center;
     grid-template-columns: repeat(2, 1fr);
     gap: 3rem;
     ul {

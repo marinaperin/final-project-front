@@ -2,7 +2,7 @@ import axios from "../../lib/axios";
 import "./events.scss";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import AdminIcons from "../AdminIcons";
 const { VITE_API_URL } = import.meta.env;
 

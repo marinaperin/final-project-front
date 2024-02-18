@@ -29,7 +29,7 @@ export default function () {
     axios
       .get(`${VITE_API_URL}/cultures`)
       .then((res) => {
-        setCultures(res.data);
+        setCultures([{ _id: null, name: "Choose" }, ...res.data]);
       })
       .catch((err) => {
         console.error(err);
@@ -39,7 +39,7 @@ export default function () {
     axios
       .get(`${VITE_API_URL}/events`)
       .then((res) => {
-        setEvents(res.data);
+        setEvents([{ _id: null, name: "Choose" }, ...res.data]);
       })
       .catch((err) => {
         console.error(err);

@@ -4,9 +4,10 @@ import { TfiClose } from "react-icons/tfi";
 import MainMenu from "./MainMenu";
 import { useState } from "react";
 import "./nav.scss";
+import { useUser } from "../../context/UserContext";
 
 export default function () {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, setIsOpen } = useUser();
 
   return (
     <>
@@ -36,7 +37,11 @@ export default function () {
           <li>
             {!isOpen && (
               <Link to="/">
-                <img src="../../logo.png" alt="Otherworldly" className="logo" />
+                <img
+                  src="/logo.png"
+                  alt="Otherworldly"
+                  className="logo"
+                />
               </Link>
             )}
           </li>

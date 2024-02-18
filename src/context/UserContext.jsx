@@ -9,6 +9,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useStorage(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const signUp = (email, password) => {
     if (loading) return;
@@ -63,6 +64,8 @@ export const UserProvider = ({ children }) => {
     error,
     loading,
     setLoading,
+    isOpen,
+    setIsOpen,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

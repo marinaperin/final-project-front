@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import "./events.scss";
 import axios from "../../lib/axios";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import useQuery from "../../hooks/useQuery";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
   const [data, setData] = useState({});
   const [events, setEvents] = useState();
   const [error, setError] = useState(false);
-  const [n, setN] = useState(1);
+  const query = useQuery();
 
   useEffect(() => {
     axios
-      .get(`${VITE_API_URL}/events?page=${n}`)
+      .get(`${VITE_API_URL}/events?page=${query ? query : 1}`)
       .then((res) => {
         setEvents(res.data.results);
         setData({ ...res.data });
@@ -21,11 +22,16 @@ export default function () {
         console.error(err);
         setError(true);
       });
-  }, []);
+  }, [query]);
 
   return (
+    <>
     <main className="main-page">
-      {error && <div className="error-msg">There was an error, try again in a few minutes.</div>}
+      {error && (
+        <div className="error-msg">
+          There was an error, try again in a few minutes.
+        </div>
+      )}
       {!error && !events && (
         <div className="loader-container">
           <img src="../../../bat-loader.gif" alt="" className="loader" />
@@ -43,12 +49,8 @@ export default function () {
               </p>
             </div>
             <div className="pages-btn">
-              <button
-                onClick={() => {
-                  setN(1);
-                }}
-              >
-                <Link to="/events">1</Link>
+              <button>
+                <Link to="/events?page=1">1</Link>
               </button>
             </div>
           </header>
@@ -77,5 +79,7 @@ export default function () {
         </>
       )}
     </main>
+    <Outlet/>
+    </>
   );
 }

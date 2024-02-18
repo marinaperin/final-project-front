@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
+import { IoIosArrowDown } from "react-icons/io";
 
-export default function ({cssClass, isOpen}) {
+export default function ({ cssClass, isOpen }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const { user, logOut, loading } = useUser();
@@ -45,7 +46,9 @@ export default function ({cssClass, isOpen}) {
           setOpen(!open);
         }}
       >
-        <NavLink to={"/cultures"}>Cultures</NavLink>
+        <NavLink className='cultures-navlink'>
+          Cultures <IoIosArrowDown />
+        </NavLink>
         {open && (
           <ul className="nav-ul tablet-show">
             <li>
@@ -104,6 +107,8 @@ export default function ({cssClass, isOpen}) {
           <button
             onClick={() => {
               logOut();
+              isOpen(false);
+              navigate("/");
             }}
             disabled={loading ? true : false}
           >
@@ -116,6 +121,7 @@ export default function ({cssClass, isOpen}) {
           <button
             onClick={() => {
               navigate("/sign-up");
+              isOpen(false);
             }}
           >
             SIGN UP
@@ -123,6 +129,7 @@ export default function ({cssClass, isOpen}) {
           <button
             onClick={() => {
               navigate("/log-in");
+              isOpen(false);
             }}
           >
             LOG IN
