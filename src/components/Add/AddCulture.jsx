@@ -30,7 +30,9 @@ export default function () {
 
   return (
     <>
-      {complete && <div className="complete-msg">Culture created successfully</div>}
+      {complete && (
+        <div className="complete-msg">Culture created successfully</div>
+      )}
       {!complete && (
         <div className="add-form">
           <label>
@@ -108,6 +110,13 @@ export default function () {
                 {formData.religions.map((r) => (
                   <span key={r}>{r} | </span>
                 ))}
+                <button
+                  onClick={() =>
+                    setFormData((curr) => ({ ...curr, religions: "" }))
+                  }
+                >
+                  Reset
+                </button>
               </p>
             )}
           </label>
@@ -140,6 +149,13 @@ export default function () {
                 {formData.languages.map((l) => (
                   <span key={l}>{l} | </span>
                 ))}
+                <button
+                  onClick={() =>
+                    setFormData((curr) => ({ ...curr, languages: "" }))
+                  }
+                >
+                  Reset
+                </button>
               </p>
             )}
           </label>

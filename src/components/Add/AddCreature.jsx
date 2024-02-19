@@ -131,6 +131,11 @@ export default function () {
                 {formData.type.map((t) => (
                   <span key={t}>{t} | </span>
                 ))}
+                <button
+                  onClick={() => setFormData((curr) => ({ ...curr, type: "" }))}
+                >
+                  Reset
+                </button>
               </p>
             )}
           </label>
@@ -163,6 +168,13 @@ export default function () {
                 {formData.traits.map((t) => (
                   <span key={t}>{t} | </span>
                 ))}
+                <button
+                  onClick={() =>
+                    setFormData((curr) => ({ ...curr, traits: "" }))
+                  }
+                >
+                  Reset
+                </button>
               </p>
             )}
           </label>
@@ -284,8 +296,7 @@ export default function () {
           <div>
             <button
               onClick={() => {
-                  postCreature();
-                
+                postCreature();
               }}
               disabled={loading ? true : false}
               className="add-btn"
