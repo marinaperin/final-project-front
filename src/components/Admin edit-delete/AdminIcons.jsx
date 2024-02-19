@@ -5,6 +5,7 @@ import { useUser } from "../../context/UserContext";
 import DeleteModal from "./DeleteModal";
 import EditCreatureModal from "./EditCreatureModal";
 import EditCultureModal from "./EditCultureModal";
+import EditEventModal from "./EditEventModal";
 
 export default function ({ resourceType }) {
   const [reqError, setReqError] = useState("");
@@ -54,7 +55,13 @@ export default function ({ resourceType }) {
           setIsOpen={(v) => setIsOpenEdit(v)}
         />
       )}
-      {resourceType === "events"}
+      {resourceType === "events" && (
+        <EditEventModal
+          resourceType={resourceType}
+          isOpen={isOpenEdit}
+          setIsOpen={(v) => setIsOpenEdit(v)}
+        />
+      )}
     </>
   );
 }

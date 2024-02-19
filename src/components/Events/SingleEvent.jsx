@@ -28,15 +28,11 @@ export default function () {
   return (
     <>
       <main className="single-resource">
-        {error && (
-          <ErrorMsg/>
-        )}
-        {!error && !event && (
-          <Loader/>
-        )}
+        {error && <ErrorMsg />}
+        {!error && !event && <Loader />}
         {!error && event && (
           <>
-            <AdminIcons resource='events'/>
+            <AdminIcons resourceType="events" />
             <h1>{event.name}</h1>
             <section className="main-single-page">
               <figure>
@@ -57,25 +53,27 @@ export default function () {
                     <strong>Type: </strong>
                     {event.type}
                   </li>
-                  <li>
+                  {event.description && <li>
                     <strong>Description: </strong>
                     {event.description}
-                  </li>
-                  <li>
+                  </li>}
+                  {event.first_mention && <li>
                     <strong>First Mention: </strong>
                     {event.first_mention}
-                  </li>
-                  <li>
-                    <strong>
-                      {event.date.length === 1 ? "Date" : "Dates"}:{" "}
-                    </strong>
-                    <ul className="dates-ul">
-                      {event.date.map((d) => {
-                        return <li key={d}>{d}</li>;
-                      })}
-                    </ul>
-                  </li>
-                  <li>
+                  </li>}
+                  {event.date.length > 0 && event.date[0] !== "" && (
+                    <li>
+                      <strong>
+                        {event.date.length === 1 ? "Date" : "Dates"}:{" "}
+                      </strong>
+                      <ul className="dates-ul">
+                        {event.date.map((d) => {
+                          return <li key={d}>{d}</li>;
+                        })}
+                      </ul>
+                    </li>
+                  )}
+                  {event.creatures.length > 0 && <li>
                     <strong>Creatures: </strong>
                     <ul className="creatures-ul">
                       {event.creatures.map((c) => {
@@ -91,7 +89,7 @@ export default function () {
                         );
                       })}
                     </ul>
-                  </li>
+                  </li>}
                 </ul>
               </div>
             </section>

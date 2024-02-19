@@ -7,10 +7,10 @@ const { VITE_API_URL } = import.meta.env;
 export default function ({ resourceType, isOpen, setIsOpen }) {
   const { id } = useParams();
   const [msg, setMsg] = useState("");
-  const [culture, setCulture] = useState();
+  const [event, setEvent] = useState();
+  const [cultures, setCultures] = useState();
   const [error, setError] = useState(false);
-  const [cultureReligion, setCultureReligion] = useState("");
-  const [cultureLanguage, setCultureLanguage] = useState("");
+  const [eventDate, setEventDate] = useState("");
   const { loading, setLoading } = useUser();
   const [formData, setFormData] = useState({});
   const dialogRef = useRef();
@@ -25,8 +25,17 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
     axios
       .get(`${VITE_API_URL}/${resourceType}/${id}`)
       .then((res) => {
-        setCulture({ ...res.data });
-        setFormData({ ...res.data, religions: "", languages: "" });
+        setEvent({ ...res.data });
+        setFormData({ ...res.data, date: "" });
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(true);
+      });
+    axios
+      .get(`${VITE_API_URL}/cultures`)
+      .then((res) => {
+        setCultures([{ _id: null, name: "Choose" }, ...res.data]);
       })
       .catch((err) => {
         console.error(err);
@@ -53,9 +62,8 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
               <p>Reloading page...</p>
             </div>
           )}
-          {!msg && formData && (
+          {!msg && formData && cultures && (
             <>
-              {" "}
               <label>
                 <span>Name:</span>
                 <input
@@ -67,33 +75,55 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                 />
               </label>
               <label>
-                <span>Country:</span>
-                <input
-                  type="text"
-                  value={formData.country}
+                <span>Culture:</span>
+                <select
+                  value={formData.culture}
                   onChange={(e) =>
                     setFormData((curr) => ({
                       ...curr,
-                      country: e.target.value,
+                      culture: e.target.value,
+                    }))
+                  }
+                >
+                  {cultures.map((c) => {
+                    return (
+                      <option value={c._id} key={c._id}>
+                        {c.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </label>
+              <label>
+                <span>Type:</span>
+                <div>
+                  <input
+                    type="text"
+                    value={formData.type}
+                    onChange={(e) => {
+                      setFormData((curr) => ({
+                        ...curr,
+                        type: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              </label>
+              <label>
+                <span>First Mention: </span>
+                <input
+                  type="text"
+                  value={formData.first_mention}
+                  onChange={(e) =>
+                    setFormData((curr) => ({
+                      ...curr,
+                      first_mention: e.target.value,
                     }))
                   }
                 />
               </label>
               <label>
-                <span>Continent:</span>
-                <input
-                  type="text"
-                  value={formData.continent}
-                  onChange={(e) =>
-                    setFormData((curr) => ({
-                      ...curr,
-                      continent: e.target.value,
-                    }))
-                  }
-                />
-              </label>
-              <label>
-                <span>Image:</span>
+                <span>Image: </span>
                 <input
                   type="text"
                   value={formData.img}
@@ -103,37 +133,37 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                 />
               </label>
               <label>
-                <span>Religions: </span>
+                <span>Date: </span>
                 <div>
                   <input
                     type="text"
-                    value={cultureReligion}
+                    value={eventDate}
                     onChange={(e) => {
-                      setCultureReligion(e.target.value);
+                      setEventDate(e.target.value);
                     }}
-                    placeholder="Click + to add"
+                    placeholder="MM/DD - Click + to add"
                   />
                   <button
                     onClick={() => {
                       setFormData((curr) => ({
                         ...curr,
-                        religions: [...formData.religions, cultureReligion],
+                        date: [...formData.date, eventDate],
                       }));
-                      setCultureReligion("");
+                      setEventDate("");
                     }}
                   >
                     +
                   </button>
                 </div>
 
-                {formData.religions && formData.religions.length > 0 && (
+                {formData.date && formData.date.length > 0 && (
                   <p>
-                    {formData.religions.map((r) => (
-                      <span key={r}>{r} | </span>
+                    {formData.date.map((d) => (
+                      <span key={d}>{d} | </span>
                     ))}
                     <button
                       onClick={() =>
-                        setFormData((curr) => ({ ...curr, religions: "" }))
+                        setFormData((curr) => ({ ...curr, date: "" }))
                       }
                     >
                       Reset
@@ -142,43 +172,20 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                 )}
               </label>
               <label>
-                <span>Languages: </span>
-                <div>
-                  <input
-                    type="text"
-                    value={cultureLanguage}
-                    onChange={(e) => {
-                      setCultureLanguage(e.target.value);
-                    }}
-                    placeholder="Click + to add"
-                  />
-                  <button
-                    onClick={() => {
-                      setFormData((curr) => ({
-                        ...curr,
-                        languages: [...formData.languages, cultureLanguage],
-                      }));
-                      setCultureLanguage("");
-                    }}
-                  >
-                    +
-                  </button>
-                </div>
-
-                {formData.languages && formData.languages.length > 0 && (
-                  <p>
-                    {formData.languages.map((l) => (
-                      <span key={l}>{l} | </span>
-                    ))}
-                    <button
-                      onClick={() =>
-                        setFormData((curr) => ({ ...curr, languages: "" }))
-                      }
-                    >
-                      Reset
-                    </button>
-                  </p>
-                )}
+                <p>Description: </p>
+                <textarea
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="10"
+                  value={formData.description}
+                  onChange={(e) =>
+                    setFormData((curr) => ({
+                      ...curr,
+                      description: e.target.value,
+                    }))
+                  }
+                ></textarea>
               </label>
               <div>
                 <button

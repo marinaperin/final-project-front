@@ -44,7 +44,9 @@ export default function () {
 
   return (
     <>
-      {complete && <div className="complete-msg">Event created successfully</div>}
+      {complete && (
+        <div className="complete-msg">Event created successfully</div>
+      )}
       {!error && cultures && !complete && (
         <div className="add-form">
           <label>
@@ -144,6 +146,11 @@ export default function () {
                 {formData.date.map((d) => (
                   <span key={d}>{d} | </span>
                 ))}
+                <button
+                  onClick={() => setFormData((curr) => ({ ...curr, date: "" }))}
+                >
+                  Reset
+                </button>
               </p>
             )}
           </label>

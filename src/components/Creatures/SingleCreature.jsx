@@ -84,9 +84,7 @@ export default function () {
               </div>
             )}
             {patchError && <div>{patchError}</div>}
-            <AdminIcons
-              resourceType="creatures"
-            />
+            <AdminIcons resourceType="creatures" />
             <h1>{creature.name}</h1>
             <section className="main-single-page">
               <figure>
@@ -114,30 +112,40 @@ export default function () {
                     )}
                     {creature.type.length === 1 && creature.type}
                   </li>
-                  <li>
-                    <strong>Description: </strong>
-                    {creature.description}
-                  </li>
-                  <li>
-                    <strong>Appearance: </strong>
-                    {creature.appearance}
-                  </li>
-                  <li>
-                    <strong>Legends: </strong>
-                    {creature.legends}
-                  </li>
-                  <li>
-                    <strong>First Mention: </strong>
-                    {creature.first_mention}
-                  </li>
-                  <li>
-                    <strong>Traits: </strong>
-                    <ul className="traits-ul">
-                      {creature.traits.map((t) => {
-                        return <li key={t}>{t}</li>;
-                      })}
-                    </ul>
-                  </li>
+                  {creature.description && (
+                    <li>
+                      <strong>Description: </strong>
+                      {creature.description}
+                    </li>
+                  )}
+                  {creature.appearance && (
+                    <li>
+                      <strong>Appearance: </strong>
+                      {creature.appearance}
+                    </li>
+                  )}
+                  {creature.legends && (
+                    <li>
+                      <strong>Legends: </strong>
+                      {creature.legends}
+                    </li>
+                  )}
+                  {creature.first_mention && (
+                    <li>
+                      <strong>First Mention: </strong>
+                      {creature.first_mention}
+                    </li>
+                  )}
+                  {creature.traits.length > 0 && creature.traits[0] !== "" && (
+                    <li>
+                      <strong>Traits: </strong>
+                      <ul className="traits-ul">
+                        {creature.traits.map((t) => {
+                          return <li key={t}>{t}</li>;
+                        })}
+                      </ul>
+                    </li>
+                  )}
                   {creature.event && (
                     <li>
                       <strong>Event: </strong>
