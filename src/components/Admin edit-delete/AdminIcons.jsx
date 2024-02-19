@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import DeleteModal from "./DeleteModal";
 import EditCreatureModal from "./EditCreatureModal";
+import EditCultureModal from "./EditCultureModal";
 
 export default function ({ resourceType }) {
   const [reqError, setReqError] = useState("");
@@ -46,7 +47,13 @@ export default function ({ resourceType }) {
           resourceType={resourceType}
         />
       )}
-      {resourceType === "cultures"}
+      {resourceType === "cultures" && (
+        <EditCultureModal
+          resourceType={resourceType}
+          isOpen={isOpenEdit}
+          setIsOpen={(v) => setIsOpenEdit(v)}
+        />
+      )}
       {resourceType === "events"}
     </>
   );

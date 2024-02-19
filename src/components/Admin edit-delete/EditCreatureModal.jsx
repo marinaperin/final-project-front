@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "../../lib/axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 const { VITE_API_URL } = import.meta.env;
 
 export default function ({ isOpen, setIsOpen, resourceType }) {
@@ -14,7 +15,8 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
   const [creatureTrait, setCreatureTrait] = useState("");
   const [haveEvent, setHaveEvent] = useState(false);
   const [error, setError] = useState(false);
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({});
+  const { loading, setLoading } = useUser();
   const dialogRef = useRef();
 
   useEffect(() => {
@@ -136,6 +138,13 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                       {formData.type.map((t) => (
                         <span key={t}>{t} | </span>
                       ))}
+                      <button
+                        onClick={() =>
+                          setFormData((curr) => ({ ...curr, type: "" }))
+                        }
+                      >
+                        Reset
+                      </button>
                     </p>
                   )}
                 </label>
@@ -166,6 +175,13 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                         {formData.traits.map((t) => (
                           <span key={t}>{t} | </span>
                         ))}
+                        <button
+                          onClick={() =>
+                            setFormData((curr) => ({ ...curr, traits: "" }))
+                          }
+                        >
+                          Reset
+                        </button>
                       </p>
                     )}
                   </div>
@@ -194,10 +210,7 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                   />
                 </label>
                 <label>
-                  <span>
-                    <span className="required">*</span> Event (one creature per
-                    event):{" "}
-                  </span>
+                  <span>Event (one creature per event): </span>
                   {!haveEvent && (
                     <>
                       <div>
@@ -297,17 +310,15 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                   onClick={() => {
                     setIsOpen(false);
                   }}
+                  disabled={loading ? true : false}
                 >
                   Cancel
                 </button>
                 <button
                   onClick={() => {
+                    setLoading(true);
                     axios
-                      .patch(`${VITE_API_URL}/${resourceType}/${id}`, {
-                        ...formData,
-                        type: [...formData.type, creatureType],
-                        traits: [...formData.traits, creatureTrait],
-                      })
+                      .patch(`${VITE_API_URL}/${resourceType}/${id}`, formData)
                       .then((res) => {
                         setMsg("Resource edited successfully");
                       })
@@ -322,6 +333,7 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                         }, 2000);
                       });
                   }}
+                  disabled={loading ? true : false}
                 >
                   Continue
                 </button>
