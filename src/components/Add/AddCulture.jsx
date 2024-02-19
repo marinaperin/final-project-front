@@ -30,7 +30,7 @@ export default function () {
 
   return (
     <>
-      {complete && <div>Culture created successfully</div>}
+      {complete && <div className="complete-msg">Culture created successfully</div>}
       {!complete && (
         <div className="add-form">
           <label>

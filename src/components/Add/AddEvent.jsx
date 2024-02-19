@@ -44,7 +44,7 @@ export default function () {
 
   return (
     <>
-      {complete && <div>Event created successfully</div>}
+      {complete && <div className="complete-msg">Event created successfully</div>}
       {!error && cultures && !complete && (
         <div className="add-form">
           <label>

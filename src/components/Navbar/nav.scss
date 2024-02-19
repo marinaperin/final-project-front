@@ -8,7 +8,7 @@ nav {
   padding-inline: 0.5rem;
   menu {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     gap: 3rem;
     font-family: 'Milonga', serif;
@@ -17,10 +17,11 @@ nav {
       align-items: center;
     }
     .nav-buttons {
+      
       display: flex;
       gap: 0.5rem;
     }
-    @media (max-width: 900px) {
+    @media (max-width: 1000px) {
       justify-content: start;
       gap: calc((100vw - ($hamburger-width + $logo-width)) / 2);
     }
@@ -68,7 +69,7 @@ nav {
       flex-direction: column;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1000px) {
       display: unset;
     }
   }

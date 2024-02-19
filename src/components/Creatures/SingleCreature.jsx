@@ -51,12 +51,8 @@ export default function () {
   return (
     <>
       <main className="single-resource">
-        {error && (
-          <ErrorMsg/>
-        )}
-        {!error && !creature && (
-          <Loader/>
-        )}
+        {error && <ErrorMsg />}
+        {!error && !creature && <Loader />}
         {!error && creature && (
           <>
             {" "}
@@ -88,7 +84,9 @@ export default function () {
               </div>
             )}
             {patchError && <div>{patchError}</div>}
-            <AdminIcons resource='creatures'/>
+            <AdminIcons
+              resourceType="creatures"
+            />
             <h1>{creature.name}</h1>
             <section className="main-single-page">
               <figure>

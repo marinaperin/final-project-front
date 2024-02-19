@@ -1,9 +1,14 @@
 @import "../../index.scss";
 
-
-.add-select{
+.add-select {
   margin-bottom: 1rem;
 }
+
+.complete-msg {
+  display: grid;
+  justify-items: center;
+}
+
 .add-form {
   margin: 0.5rem;
   margin-top: 1rem;
@@ -26,9 +31,9 @@
     resize: vertical;
     outline: none;
     border: 1px solid $gold-color;
-    padding: .5rem;
+    padding: 0.5rem;
   }
-  .add-btn{
+  .add-btn {
     position: fixed;
     top: calc((100vh - 8rem));
     right: 10%;

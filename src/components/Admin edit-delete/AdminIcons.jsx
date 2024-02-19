@@ -3,20 +3,28 @@ import { FaTrashCan } from "react-icons/fa6";
 import { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import DeleteModal from "./DeleteModal";
+import EditCreatureModal from "./EditCreatureModal";
 
-export default function ({resource}) {
+export default function ({ resourceType }) {
   const [reqError, setReqError] = useState("");
   const { user, loading } = useUser();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenDelete, setIsOpenDelete] = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
 
   return (
     <>
       {user && !loading && user.user_type === "admin" && (
         <div className="icon-container">
-          <MdModeEdit onClick={() => {}} className="icon" title="Edit" />
+          <MdModeEdit
+            onClick={() => {
+              setIsOpenEdit(true);
+            }}
+            className="icon"
+            title="Edit"
+          />
           <FaTrashCan
             onClick={() => {
-              setIsOpen(true);
+              setIsOpenDelete(true);
             }}
             className="icon"
             title="Delete"
@@ -25,12 +33,21 @@ export default function ({resource}) {
       )}
       {reqError && <div>{reqError}</div>}
       <DeleteModal
-        isOpen={isOpen}
+        isOpen={isOpenDelete}
         setIsOpen={(v) => {
-          setIsOpen(v);
+          setIsOpenDelete(v);
         }}
-        resource={resource}
+        resourceType={resourceType}
       />
+      {resourceType === "creatures" && (
+        <EditCreatureModal
+          isOpen={isOpenEdit}
+          setIsOpen={(v) => setIsOpenEdit(v)}
+          resourceType={resourceType}
+        />
+      )}
+      {resourceType === "cultures"}
+      {resourceType === "events"}
     </>
   );
 }

@@ -28,7 +28,11 @@ export default function () {
   const postCreature = () => {
     setLoading(true);
     axios
-      .post(`${VITE_API_URL}/creatures`, formData)
+      .post(`${VITE_API_URL}/creatures`, {
+        ...formData,
+        type: [...formData.type, creatureType],
+        traits: [...formData.traits, creatureTrait],
+      })
       .then((res) => {
         setComplete(true);
       })
@@ -60,7 +64,9 @@ export default function () {
 
   return (
     <>
-      {complete && <div>Creature created successfully</div>}
+      {complete && (
+        <div className="complete-msg">Creature created successfully</div>
+      )}
       {!error && cultures && !complete && (
         <div className="add-form">
           <label>
@@ -184,7 +190,10 @@ export default function () {
             />
           </label>
           <label>
-            <span><span className="required">*</span> Event (one creature per event): </span>
+            <span>
+              <span className="required">*</span> Event (one creature per
+              event):{" "}
+            </span>
             {!haveEvent && (
               <>
                 <div>
@@ -275,7 +284,8 @@ export default function () {
           <div>
             <button
               onClick={() => {
-                postCreature();
+                  postCreature();
+                
               }}
               disabled={loading ? true : false}
               className="add-btn"
