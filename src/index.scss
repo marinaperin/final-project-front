@@ -375,7 +375,7 @@ footer {
   }
   .link {
     background-color: black;
-    padding: 0.3rem;
+    padding: 0.3rem 0.4rem;
     border-radius: 2rem;
     transition: 0.5s ease-in-out;
     &:hover {
@@ -396,12 +396,13 @@ footer {
     margin-bottom: 1rem;
     .icon {
       cursor: pointer;
+      margin-bottom: 1rem;
     }
   }
   .hide {
     display: none;
   }
   @media (max-width: 640px) {
-    padding: .7rem;
+    padding: .5rem;
   }
 }
