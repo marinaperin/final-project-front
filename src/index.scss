@@ -134,7 +134,7 @@ input {
   }
 }
 
-$delete-dialog-height: 70%;
+$delete-dialog-height: 60%;
 $delete-dialog-width: 90%;
 $edit-dialog-height: 90%;
 $edit-dialog-width: 90%;
@@ -393,6 +393,7 @@ footer {
     gap: 1rem;
     right: 2rem;
     top: 10rem;
+    margin-bottom: 1rem;
     .icon {
       cursor: pointer;
     }
@@ -401,6 +402,6 @@ footer {
     display: none;
   }
   @media (max-width: 640px) {
-    padding: 1rem;
+    padding: .7rem;
   }
 }
