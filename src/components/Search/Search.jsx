@@ -95,6 +95,9 @@ export default function () {
                   search();
                 }
               }}
+              onClick={() => {
+                setNotFound();
+              }}
             />
             <div className="btn-container">
               <button

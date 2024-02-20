@@ -33,6 +33,8 @@ export default function () {
       });
   }, [query]);
 
+console.log(query);
+
   return (
     <>
       <main className="main-page">
@@ -59,7 +61,7 @@ export default function () {
                     {filteredData.total_pages === 1 ? "page" : "pages"}
                   </p>
                 )}
-                <p className="select-p">
+               {(!query || query === '1') && <p className="select-p">
                   <span>
                     Filter by continent <IoIosArrowDown />
                   </span>
@@ -67,7 +69,6 @@ export default function () {
                     name=""
                     id=""
                     onClick={() => {
-                      navigate("/cultures");
                       setShowedCultures(cultures);
                       setFilteredData();
                       setSelVal('');
@@ -101,7 +102,7 @@ export default function () {
                     <option value="Oceania">Oceania</option>
                     <option value="South America">South America</option>
                   </select>
-                </p>
+                </p>}
               </div>
               <Pagination
                 resource="cultures"
