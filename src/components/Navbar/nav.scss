@@ -1,6 +1,6 @@
 @import "../../index.scss";
 
-$hamburger-width: 2rem;
+$hamburger-width: 3rem;
 $logo-width: 10rem;
 
 nav {
@@ -36,6 +36,7 @@ nav {
   .hamburger-button {
     outline: none;
     padding: 1rem;
+    text-align: center;
     width: $hamburger-width;
     cursor: pointer;
     background-color: transparent;

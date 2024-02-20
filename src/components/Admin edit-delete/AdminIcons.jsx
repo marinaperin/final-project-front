@@ -9,14 +9,14 @@ import EditEventModal from "./EditEventModal";
 
 export default function ({ resourceType }) {
   const [reqError, setReqError] = useState("");
-  const { user, loading } = useUser();
+  const { user, loading, isOpen } = useUser();
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
   return (
     <>
       {user && !loading && user.user_type === "admin" && (
-        <div className="icon-container">
+        <div className={`icon-container ${isOpen && 'hide'}`}>
           <MdModeEdit
             onClick={() => {
               setIsOpenEdit(true);

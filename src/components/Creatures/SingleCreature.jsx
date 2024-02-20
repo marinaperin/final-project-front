@@ -83,7 +83,7 @@ export default function () {
                 </p>
               </div>
             )}
-            {patchError && <div>{patchError}</div>}
+            {patchError && <div className="issue-msg">{patchError}</div>}
             <AdminIcons resourceType="creatures" />
             <h1>{creature.name}</h1>
             <section className="main-single-page">

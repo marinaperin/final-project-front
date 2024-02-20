@@ -10,6 +10,7 @@ export default function () {
   const [creatureSelect, setCreatureSelect] = useState("");
   const [inputVal, setInputVal] = useState("");
   const [resource, setResource] = useState();
+  const [notFound, setNotFound] = useState();
   const [error, setError] = useState(false);
 
   const search = () => {
@@ -38,7 +39,15 @@ export default function () {
       })
       .catch((err) => {
         console.error(err);
-        setError(true);
+        if (err.response.status === 404) {
+          if (selVal === "") {
+            setError(true);
+          } else {
+            setNotFound("No resources found");
+          }
+        } else {
+          setError(true);
+        }
       });
   };
 
@@ -52,6 +61,10 @@ export default function () {
               value={selVal}
               onChange={(e) => {
                 setSelVal(e.target.value);
+              }}
+              onClick={() => {
+                setError(false);
+                setNotFound("");
               }}
             >
               <option value="">Choose</option>
@@ -96,6 +109,7 @@ export default function () {
         </header>
         <section className="resources-grid">
           {error && <ErrorMsg />}
+          {notFound && <p>{notFound}</p>}
           {!error &&
             resource &&
             resource.map((r, i) => {

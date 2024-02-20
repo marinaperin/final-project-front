@@ -133,7 +133,7 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                       +
                     </button>
                   </div>
-                  {formData.type.length > 0 && (
+                  {formData.type && formData.type.length > 0 && (
                     <p>
                       {formData.type.map((t) => (
                         <span key={t}>{t} | </span>

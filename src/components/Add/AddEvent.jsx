@@ -8,6 +8,7 @@ export default function () {
   const [eventDate, setEventDate] = useState("");
   const [cultures, setCultures] = useState();
   const [error, setError] = useState(false);
+  const [postError, setPostError] = useState(false);
   const { loading, setLoading } = useUser();
   const [formData, setFormData] = useState({
     name: "",
@@ -26,7 +27,10 @@ export default function () {
       .then((res) => {
         setComplete(true);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err);
+        setPostError(true);
+      })
       .finally(() => setLoading(false));
   };
 
@@ -47,6 +51,7 @@ export default function () {
       {complete && (
         <div className="complete-msg">Event created successfully</div>
       )}
+      {postError && <div className="issue-msg">Issue adding event</div>}
       {!error && cultures && !complete && (
         <div className="add-form">
           <label>

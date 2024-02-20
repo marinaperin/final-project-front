@@ -7,6 +7,7 @@ export default function () {
   const [complete, setComplete] = useState(false);
   const [cultureReligion, setCultureReligion] = useState("");
   const [cultureLanguage, setCultureLanguage] = useState("");
+  const [postError, setPostError] = useState(false);
   const { loading, setLoading } = useUser();
   const [formData, setFormData] = useState({
     name: "",
@@ -24,7 +25,10 @@ export default function () {
       .then((res) => {
         setComplete(true);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err);
+        setPostError(true);
+      })
       .finally(() => setLoading(false));
   };
 
@@ -33,6 +37,7 @@ export default function () {
       {complete && (
         <div className="complete-msg">Culture created successfully</div>
       )}
+      {postError && <div className="issue-msg">Issue adding culture</div>}
       {!complete && (
         <div className="add-form">
           <label>

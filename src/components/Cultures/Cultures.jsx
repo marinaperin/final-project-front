@@ -11,6 +11,7 @@ const { VITE_API_URL } = import.meta.env;
 
 export default function () {
   const [data, setData] = useState({});
+  const [filteredData, setFilteredData] = useState();
   const [cultures, setCultures] = useState();
   const [showedCultures, setShowedCultures] = useState();
   const [error, setError] = useState(false);
@@ -35,22 +36,29 @@ export default function () {
   return (
     <>
       <main className="main-page">
-        {error && (
-          <ErrorMsg/>
-        )}
-        {!error && !cultures && (
-          <Loader/>
-        )}
+        {error && <ErrorMsg />}
+        {!error && !cultures && <Loader />}
         {!error && cultures && (
           <>
             <header>
               <h1>Cultures</h1>
               <div className="cultures-info">
-                <p>
-                  {data.total_results}{" "}
-                  {data.total_results === 1 ? "result" : "results"} in{" "}
-                  {data.total_pages} {data.total_pages === 1 ? "page" : "pages"}
-                </p>
+                {data && !filteredData && (
+                  <p>
+                    {data.total_results}{" "}
+                    {data.total_results === 1 ? "result" : "results"} in{" "}
+                    {data.total_pages}{" "}
+                    {data.total_pages === 1 ? "page" : "pages"}
+                  </p>
+                )}
+                {filteredData && (
+                  <p>
+                    {filteredData.total_results}{" "}
+                    {filteredData.total_results === 1 ? "result" : "results"} in{" "}
+                    {filteredData.total_pages}{" "}
+                    {filteredData.total_pages === 1 ? "page" : "pages"}
+                  </p>
+                )}
                 <p className="select-p">
                   <span>
                     Filter by continent <IoIosArrowDown />
@@ -58,6 +66,12 @@ export default function () {
                   <select
                     name=""
                     id=""
+                    onClick={() => {
+                      navigate("/cultures");
+                      setShowedCultures(cultures);
+                      setFilteredData();
+                      setSelVal('');
+                    }}
                     value={selVal}
                     onChange={(e) => {
                       setSelVal(e.target.value);
@@ -67,11 +81,16 @@ export default function () {
                         const filtered = cultures.filter(
                           (c) => c.continent === e.target.value
                         );
+                        let total_results = 0;
+                        filtered.forEach((c) => {
+                          total_results++;
+                        });
+                        setFilteredData({
+                          total_results: total_results,
+                          total_pages: 1,
+                        });
                         setShowedCultures(filtered);
                       }
-                    }}
-                    onClick={() => {
-                      navigate("/cultures?page=1");
                     }}
                   >
                     <option value="">Choose</option>
@@ -84,7 +103,12 @@ export default function () {
                   </select>
                 </p>
               </div>
-              <Pagination resource='cultures' pages={data.total_pages}/>
+              <Pagination
+                resource="cultures"
+                pages={
+                  filteredData ? filteredData.total_pages : data.total_pages
+                }
+              />
             </header>
             <section className="resources-grid">
               {showedCultures.map((c, i) => {

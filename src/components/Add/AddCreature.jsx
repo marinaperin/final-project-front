@@ -10,6 +10,7 @@ export default function () {
   const [creatureType, setCreatureType] = useState("");
   const [creatureTrait, setCreatureTrait] = useState("");
   const [haveEvent, setHaveEvent] = useState(false);
+  const [postError, setPostError] = useState(false);
   const [complete, setComplete] = useState(false);
   const { loading, setLoading } = useUser();
   const [formData, setFormData] = useState({
@@ -36,7 +37,10 @@ export default function () {
       .then((res) => {
         setComplete(true);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err);
+        setPostError(true);
+      })
       .finally(() => setLoading(false));
   };
 
@@ -67,6 +71,7 @@ export default function () {
       {complete && (
         <div className="complete-msg">Creature created successfully</div>
       )}
+      {postError && <div className="issue-msg">Issue adding creature</div>}
       {!error && cultures && !complete && (
         <div className="add-form">
           <label>

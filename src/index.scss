@@ -44,6 +44,10 @@ h3 {
 
 .disabled {
   opacity: 50%;
+  &:hover {
+    background-color: black;
+    color: $gold-color;
+  }
 }
 
 .tablet-hide {
@@ -130,10 +134,10 @@ input {
   }
 }
 
-$delete-dialog-height: 14rem;
-$delete-dialog-width: 20rem;
-$edit-dialog-height: 30rem;
-$edit-dialog-width: 25rem;
+$delete-dialog-height: 40%;
+$delete-dialog-width: 40%;
+$edit-dialog-height: 80%;
+$edit-dialog-width: 50%;
 
 dialog[open] {
   display: grid;
@@ -147,6 +151,7 @@ dialog[open] {
   }
   .main-modal {
     display: grid;
+    justify-content: center;
     justify-items: center;
     text-align: center;
     gap: 1rem;
@@ -156,7 +161,6 @@ dialog[open] {
 
 .edit-dialog[open] {
   display: grid;
-  justify-content: center;
   height: $edit-dialog-height;
   width: $edit-dialog-width;
   left: calc((100vw - $edit-dialog-width) / 2);
@@ -167,12 +171,13 @@ dialog[open] {
   }
   .main-modal {
     display: grid;
+    justify-content: center;
     justify-items: center;
     align-items: start;
     text-align: center;
     gap: 1rem;
     padding: 1rem;
-    .modal-msg{
+    .modal-msg {
       align-self: start;
     }
     label {
@@ -337,6 +342,7 @@ footer {
 
 .single-resource {
   display: grid;
+  justify-content: center;
   justify-items: center;
   gap: 1rem;
   padding: 2rem;
@@ -344,7 +350,8 @@ footer {
     display: grid;
     justify-items: center;
     grid-template-columns: repeat(2, 1fr);
-    gap: 3rem;
+    gap: 2rem;
+    line-height: 1.2rem;
     ul {
       list-style-type: circle;
       li {
@@ -389,5 +396,8 @@ footer {
     .icon {
       cursor: pointer;
     }
+  }
+  .hide {
+    display: none;
   }
 }

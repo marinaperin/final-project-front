@@ -9,6 +9,12 @@
   justify-items: center;
 }
 
+.issue-msg{
+  display: grid;
+  justify-items: center;
+  color: indianred;
+}
+
 .add-form {
   margin: 0.5rem;
   margin-top: 1rem;
@@ -48,6 +54,7 @@
     }
     @media (max-width: 640px) {
       right: 5%;
+      top: 80%;
     }
   }
 }

@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
       })
       .catch((err) => {
         console.error(err);
-        setError(error.message);
+        setError(error);
       })
       .finally(() => {
         setLoading(false);
@@ -42,7 +42,7 @@ export const UserProvider = ({ children }) => {
       })
       .catch((err) => {
         console.error(err);
-        setError(error.message);
+        setError(error);
       })
       .finally(() => {
         setLoading(false);

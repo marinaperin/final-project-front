@@ -1,5 +1,11 @@
 @import "../../index.scss";
 
+h1{
+  display: grid;
+  justify-items:center;
+  text-align: center;
+}
+
 .main-page {
   .tablet-hide {
     @media (max-width: 1280px) {

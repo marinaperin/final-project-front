@@ -64,6 +64,7 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
           )}
           {!msg && formData && cultures && (
             <>
+            <h2>Edit</h2>
               <label>
                 <span>Name:</span>
                 <input

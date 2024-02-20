@@ -52,7 +52,7 @@ export default function () {
                       {culture.continent}
                     </li>
                   )}
-                  {culture.creature && (
+                  {culture.creatures && (
                     <li>
                       <strong>Creatures: </strong>
                       <ul className="creatures-ul">
