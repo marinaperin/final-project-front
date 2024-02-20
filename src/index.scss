@@ -134,10 +134,10 @@ input {
   }
 }
 
-$delete-dialog-height: 40%;
-$delete-dialog-width: 40%;
-$edit-dialog-height: 80%;
-$edit-dialog-width: 50%;
+$delete-dialog-height: 70%;
+$delete-dialog-width: 90%;
+$edit-dialog-height: 90%;
+$edit-dialog-width: 90%;
 
 dialog[open] {
   display: grid;
@@ -350,10 +350,10 @@ footer {
     display: grid;
     justify-items: center;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    line-height: 1.2rem;
+    gap: 3rem;
     ul {
       list-style-type: circle;
+      line-height: 1.5rem;
       li {
         padding: 0.2rem;
       }
@@ -399,5 +399,8 @@ footer {
   }
   .hide {
     display: none;
+  }
+  @media (max-width: 640px) {
+    padding: 1rem;
   }
 }
