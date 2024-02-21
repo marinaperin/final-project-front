@@ -34,9 +34,12 @@ nav {
     width: $logo-width;
   }
   .hamburger-button {
+    margin-top: .2rem;
     outline: none;
-    padding: 1rem;
+    padding: .5rem;
     text-align: center;
+    display: grid;
+    place-content: center;
     width: $hamburger-width;
     cursor: pointer;
     background-color: transparent;

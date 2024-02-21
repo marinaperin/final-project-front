@@ -94,6 +94,7 @@ export default function () {
                 if (e.key === "Enter") {
                   search();
                 }
+                setNotFound();
               }}
               onClick={() => {
                 setNotFound();

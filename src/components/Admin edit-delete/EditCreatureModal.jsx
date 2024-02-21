@@ -170,7 +170,7 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                     >
                       +
                     </button>
-                    {formData.traits.length > 0 && (
+                    {formData.traits && formData.traits.length > 0 && (
                       <p>
                         {formData.traits.map((t) => (
                           <span key={t}>{t} | </span>
