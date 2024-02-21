@@ -5,7 +5,7 @@ import { Link, Outlet } from "react-router-dom";
 import useQuery from "../../hooks/useQuery";
 import Loader from "../Error & Loader/Loader";
 import ErrorMsg from "../Error & Loader/ErrorMsg";
-import Pagination from "../PagesButtons/Pagination";
+import Pagination from "../Pagination/Pagination";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
