@@ -10,7 +10,7 @@ export default function () {
   const [creatureType, setCreatureType] = useState("");
   const [creatureTrait, setCreatureTrait] = useState("");
   const [haveEvent, setHaveEvent] = useState(false);
-  const [postError, setPostError] = useState(false);
+  const [postError, setPostError] = useState("");
   const [complete, setComplete] = useState(false);
   const { loading, setLoading } = useUser();
   const [formData, setFormData] = useState({
@@ -39,9 +39,12 @@ export default function () {
       })
       .catch((err) => {
         console.error(err);
-        setPostError(true);
+        setPostError(err.response.data._message);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        setTimeout(() => setPostError(""), 5000);
+      });
   };
 
   useEffect(() => {
@@ -58,6 +61,10 @@ export default function () {
     axios
       .get(`${VITE_API_URL}/events`)
       .then((res) => {
+        /* 
+        const filteredEvents = res.data.filter((e) => {
+          return e.creatures.length === 0;
+        }); */
         setEvents([{ _id: null, name: "Choose" }, ...res.data]);
       })
       .catch((err) => {
@@ -71,7 +78,11 @@ export default function () {
       {complete && (
         <div className="complete-msg">Creature created successfully</div>
       )}
-      {postError && <div className="issue-msg">Issue adding creature</div>}
+      {postError && (
+        <div className="issue-msg">
+          Issue adding creature : {`${postError}`}
+        </div>
+      )}
       {!error && cultures && !complete && (
         <div className="add-form">
           <label>
@@ -208,8 +219,8 @@ export default function () {
           </label>
           <label>
             <span>
-              <span className="required">*</span> Event (one creature per
-              event):{" "}
+              <span className="required">*</span> Event (one event per
+              creature):{" "}
             </span>
             {!haveEvent && (
               <>
@@ -238,16 +249,16 @@ export default function () {
               <div>
                 <select
                   value={formData.event}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setFormData((curr) => ({
                       ...curr,
                       event: e.target.value,
-                    }))
-                  }
+                    }));
+                  }}
                 >
                   {events.map((e) => {
                     return (
-                      <option value={e._id} key={e._id}>
+                      <option value={e._id} key={e._id} title={e.name}>
                         {e.name}
                       </option>
                     );
@@ -255,6 +266,7 @@ export default function () {
                 </select>
               </div>
             )}
+            {haveEvent && formData.event !== '' && <p>{formData.event}</p>}
           </label>
           <label>
             <p>Description: </p>

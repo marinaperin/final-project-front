@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "./cultures.scss";
 import axios from "../../lib/axios";
 import { useEffect, useState } from "react";
@@ -17,7 +17,6 @@ export default function () {
   const [error, setError] = useState(false);
   const [selVal, setSelVal] = useState();
   const query = useQuery();
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios

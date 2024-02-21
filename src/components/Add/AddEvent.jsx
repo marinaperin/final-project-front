@@ -8,7 +8,7 @@ export default function () {
   const [eventDate, setEventDate] = useState("");
   const [cultures, setCultures] = useState();
   const [error, setError] = useState(false);
-  const [postError, setPostError] = useState(false);
+  const [postError, setPostError] = useState("");
   const { loading, setLoading } = useUser();
   const [formData, setFormData] = useState({
     name: "",
@@ -29,9 +29,12 @@ export default function () {
       })
       .catch((err) => {
         console.error(err);
-        setPostError(true);
+        setPostError(err.response.data._message);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        setTimeout(() => setPostError(""), 5000);
+      });
   };
 
   useEffect(() => {
