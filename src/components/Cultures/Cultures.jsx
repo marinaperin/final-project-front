@@ -33,8 +33,6 @@ export default function () {
       });
   }, [query]);
 
-console.log(query);
-
   return (
     <>
       <main className="main-page">
