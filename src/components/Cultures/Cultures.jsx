@@ -6,7 +6,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import useQuery from "../../hooks/useQuery";
 import Loader from "../Error & Loader/Loader";
 import ErrorMsg from "../Error & Loader/ErrorMsg";
-import Pagination from "../PagesButtons/Pagination";
+import Pagination from "../Pagination/Pagination";
+import { useUser } from "../../context/UserContext";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -16,9 +17,11 @@ export default function () {
   const [showedCultures, setShowedCultures] = useState();
   const [error, setError] = useState(false);
   const [selVal, setSelVal] = useState();
+  const { loading, setLoading } = useUser();
   const query = useQuery();
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${VITE_API_URL}/cultures?page=${query ? query : 1}`)
       .then((res) => {
@@ -29,7 +32,8 @@ export default function () {
       .catch((err) => {
         console.error(err);
         setError(true);
-      });
+      })
+      .finally(() => setLoading(false));
   }, [query]);
 
   return (
@@ -58,48 +62,51 @@ export default function () {
                     {filteredData.total_pages === 1 ? "page" : "pages"}
                   </p>
                 )}
-               {(!query || query === '1') && <p className="select-p">
-                  <span>
-                    Filter by continent <IoIosArrowDown />
-                  </span>
-                  <select
-                    name=""
-                    id=""
-                    onClick={() => {
-                      setShowedCultures(cultures);
-                      setFilteredData();
-                      setSelVal('');
-                    }}
-                    value={selVal}
-                    onChange={(e) => {
-                      setSelVal(e.target.value);
-                      if (e.target.value === "") {
+                {(!query || query === "1") && (
+                  <p className="select-p">
+                    <span>
+                      Filter by continent <IoIosArrowDown />
+                    </span>
+                    <select
+                      name=""
+                      id=""
+                      onClick={() => {
                         setShowedCultures(cultures);
-                      } else {
-                        const filtered = cultures.filter(
-                          (c) => c.continent === e.target.value
-                        );
-                        let total_results = 0;
-                        filtered.forEach((c) => {
-                          total_results++;
-                        });
-                        setFilteredData({
-                          total_results: total_results,
-                          total_pages: 1,
-                        });
-                        setShowedCultures(filtered);
-                      }
-                    }}
-                  >
-                    <option value="">Choose</option>
-                    <option value="Africa">Africa</option>
-                    <option value="Asia">Asia</option>
-                    <option value="Europe">Europe</option>
-                    <option value="North America">North America</option>
-                    <option value="Oceania">Oceania</option>
-                    <option value="South America">South America</option>
-                  </select>
-                </p>}
+                        setFilteredData();
+                        setSelVal("");
+                      }}
+                      value={selVal}
+                      onChange={(e) => {
+                        setSelVal(e.target.value);
+                        if (e.target.value === "") {
+                          setShowedCultures(cultures);
+                        } else {
+                          const filtered = cultures.filter(
+                            (c) => c.continent === e.target.value
+                          );
+                          let total_results = 0;
+                          filtered.forEach((c) => {
+                            total_results++;
+                          });
+                          setFilteredData({
+                            total_results: total_results,
+                            total_pages: 1,
+                          });
+                          setShowedCultures(filtered);
+                        }
+                      }}
+                      disabled={loading ? true : false}
+                    >
+                      <option value="">Choose</option>
+                      <option value="Africa">Africa</option>
+                      <option value="Asia">Asia</option>
+                      <option value="Europe">Europe</option>
+                      <option value="North America">North America</option>
+                      <option value="Oceania">Oceania</option>
+                      <option value="South America">South America</option>
+                    </select>
+                  </p>
+                )}
               </div>
               <Pagination
                 resource="cultures"
