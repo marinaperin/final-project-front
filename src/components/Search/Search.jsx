@@ -3,6 +3,7 @@ import "../../index.scss";
 import { useState } from "react";
 import ErrorMsg from "../Error & Loader/ErrorMsg";
 import { Link } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 const { VITE_API_URL } = import.meta.env;
 
 export default function () {
@@ -12,8 +13,10 @@ export default function () {
   const [resource, setResource] = useState();
   const [notFound, setNotFound] = useState();
   const [error, setError] = useState(false);
+  const { loading, setLoading } = useUser();
 
   const search = () => {
+    setLoading(true);
     axios
       .get(
         `${VITE_API_URL}/${selVal}${
@@ -48,7 +51,8 @@ export default function () {
         } else {
           setError(true);
         }
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -95,9 +99,11 @@ export default function () {
                   search();
                 }
                 setNotFound();
+                setResource();
               }}
               onClick={() => {
                 setNotFound();
+                setResource();
               }}
             />
             <div className="btn-container">
@@ -105,6 +111,7 @@ export default function () {
                 onClick={() => {
                   search();
                 }}
+                disabled={loading ? true : false}
               >
                 SEARCH
               </button>

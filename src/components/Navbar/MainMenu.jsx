@@ -159,6 +159,7 @@ export default function ({ cssClass, isOpen }) {
                 isOpen(false);
               }
             }}
+            disabled={loading ? true : false}
           >
             SIGN UP
           </button>
@@ -171,6 +172,7 @@ export default function ({ cssClass, isOpen }) {
                 isOpen(false);
               }
             }}
+            disabled={loading ? true : false}
           >
             LOG IN
           </button>

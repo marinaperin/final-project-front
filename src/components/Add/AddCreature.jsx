@@ -11,6 +11,7 @@ export default function () {
   const [creatureTrait, setCreatureTrait] = useState("");
   const [haveEvent, setHaveEvent] = useState(false);
   const [postError, setPostError] = useState("");
+  const [incompleteError, setIncompleteError] = useState("");
   const [complete, setComplete] = useState(false);
   const { loading, setLoading } = useUser();
   const [formData, setFormData] = useState({
@@ -27,20 +28,24 @@ export default function () {
   });
 
   const postCreature = () => {
-    setLoading(true);
-    axios
-      .post(`${VITE_API_URL}/creatures`, formData)
-      .then((res) => {
-        setComplete(true);
-      })
-      .catch((err) => {
-        console.error(err);
-        setPostError(err.response.data._message);
-      })
-      .finally(() => {
-        setLoading(false);
-        setTimeout(() => setPostError(""), 5000);
-      });
+    if (!formData.name || !formData.type) {
+      setIncompleteError("All required fields must be filled");
+    } else {
+      setLoading(true);
+      axios
+        .post(`${VITE_API_URL}/creatures`, formData)
+        .then((res) => {
+          setComplete(true);
+        })
+        .catch((err) => {
+          console.error(err);
+          setPostError(err.response.data._message);
+        })
+        .finally(() => {
+          setLoading(false);
+          setTimeout(() => setPostError(""), 5000);
+        });
+    }
   };
 
   useEffect(() => {
@@ -57,10 +62,6 @@ export default function () {
     axios
       .get(`${VITE_API_URL}/events`)
       .then((res) => {
-        /* 
-        const filteredEvents = res.data.filter((e) => {
-          return e.creatures.length === 0;
-        }); */
         setEvents([{ _id: "", name: "Choose" }, ...res.data]);
       })
       .catch((err) => {
@@ -79,8 +80,19 @@ export default function () {
           Issue adding creature : {`${postError}`}
         </div>
       )}
+      {incompleteError && (
+        <div className="issue-msg">
+          Issue adding creature: {incompleteError}
+        </div>
+      )}
       {!error && cultures && !complete && (
-        <div className="add-form">
+        <div
+          className="add-form"
+          onClick={() => {
+            incompleteError &&
+            setIncompleteError("");
+          }}
+        >
           <label>
             <span>
               <span className="required">*</span> Name:{" "}
@@ -188,7 +200,6 @@ export default function () {
                 +
               </button>
             </div>
-
             {formData.traits.length > 0 && (
               <p>
                 {formData.traits.map((t) => (
