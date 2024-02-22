@@ -15,6 +15,25 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
   const [formData, setFormData] = useState({});
   const dialogRef = useRef();
 
+  const patchEvent = () => {
+    setLoading(true);
+    axios
+      .patch(`${VITE_API_URL}/${resourceType}/${id}`, formData)
+      .then((res) => {
+        setMsg("Resource edited successfully");
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(true);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          window.location.reload();
+          setIsOpen(false);
+        }, 2000);
+      });
+  };
+
   useEffect(() => {
     if (isOpen) {
       dialogRef.current.showModal();
@@ -64,7 +83,7 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
           )}
           {!msg && formData && cultures && (
             <>
-            <h2>Edit</h2>
+              <h2>Edit</h2>
               <label>
                 <span>Name:</span>
                 <input
@@ -146,11 +165,18 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                   />
                   <button
                     onClick={() => {
-                      setFormData((curr) => ({
-                        ...curr,
-                        date: [...formData.date, eventDate],
-                      }));
-                      setEventDate("");
+                      if (eventDate === "") {
+                        setFormData((curr) => ({
+                          ...curr,
+                          date: [...formData.date],
+                        }));
+                      } else {
+                        setFormData((curr) => ({
+                          ...curr,
+                          date: [...formData.date, eventDate],
+                        }));
+                        setEventDate("");
+                      }
                     }}
                   >
                     +
@@ -199,22 +225,16 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                 </button>
                 <button
                   onClick={() => {
-                    setLoading(true);
-                    axios
-                      .patch(`${VITE_API_URL}/${resourceType}/${id}`, formData)
-                      .then((res) => {
-                        setMsg("Resource edited successfully");
-                      })
-                      .catch((err) => {
-                        console.error(err);
-                        setError(true);
-                      })
-                      .finally(() => {
-                        setTimeout(() => {
-                          window.location.reload();
-                          setIsOpen(false);
-                        }, 2000);
-                      });
+                    if (eventDate) {
+                      setFormData((curr) => ({
+                        ...curr,
+                        date: [...formData.date, eventDate],
+                      }));
+                      patchEvent();
+                      setEventDate("");
+                    } else {
+                      patchEvent();
+                    }
                   }}
                   disabled={loading ? true : false}
                 >

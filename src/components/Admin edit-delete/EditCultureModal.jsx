@@ -15,6 +15,25 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
   const [formData, setFormData] = useState({});
   const dialogRef = useRef();
 
+  const patchCulture = (data) => {
+    setLoading(true);
+    axios
+      .patch(`${VITE_API_URL}/${resourceType}/${id}`, formData)
+      .then((res) => {
+        setMsg("Resource edited successfully");
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(true);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          window.location.reload();
+          setIsOpen(false);
+        }, 2000);
+      });
+  };
+
   useEffect(() => {
     if (isOpen) {
       dialogRef.current.showModal();
@@ -26,7 +45,7 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
       .get(`${VITE_API_URL}/${resourceType}/${id}`)
       .then((res) => {
         setCulture({ ...res.data });
-        setFormData({ ...res.data, religions: "", languages: "" });
+        setFormData({ ...res.data });
       })
       .catch((err) => {
         console.error(err);
@@ -116,11 +135,18 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                   />
                   <button
                     onClick={() => {
-                      setFormData((curr) => ({
-                        ...curr,
-                        religions: [...formData.religions, cultureReligion],
-                      }));
-                      setCultureReligion("");
+                      if (cultureReligion === "") {
+                        setFormData((curr) => ({
+                          ...curr,
+                          religions: [...formData.religions],
+                        }));
+                      } else {
+                        setFormData((curr) => ({
+                          ...curr,
+                          religions: [...formData.religions, cultureReligion],
+                        }));
+                        setCultureReligion("");
+                      }
                     }}
                   >
                     +
@@ -155,11 +181,18 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                   />
                   <button
                     onClick={() => {
-                      setFormData((curr) => ({
-                        ...curr,
-                        languages: [...formData.languages, cultureLanguage],
-                      }));
-                      setCultureLanguage("");
+                      if (cultureLanguage === "") {
+                        setFormData((curr) => ({
+                          ...curr,
+                          languages: [...formData.languages],
+                        }));
+                      } else {
+                        setFormData((curr) => ({
+                          ...curr,
+                          languages: [...formData.languages, cultureLanguage],
+                        }));
+                        setCultureLanguage("");
+                      }
                     }}
                   >
                     +
@@ -192,22 +225,23 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                 </button>
                 <button
                   onClick={() => {
-                    setLoading(true);
-                    axios
-                      .patch(`${VITE_API_URL}/${resourceType}/${id}`, formData)
-                      .then((res) => {
-                        setMsg("Resource edited successfully");
-                      })
-                      .catch((err) => {
-                        console.error(err);
-                        setError(true);
-                      })
-                      .finally(() => {
-                        setTimeout(() => {
-                          window.location.reload();
-                          setIsOpen(false);
-                        }, 2000);
-                      });
+                    if (cultureReligion) {
+                      setFormData((curr) => ({
+                        ...curr,
+                        religions: [...formData.religions, cultureReligion],
+                      }));
+                      patchCulture();
+                      setCultureReligion("");
+                    } else if (cultureLanguage) {
+                      setFormData((curr) => ({
+                        ...curr,
+                        languages: [...formData.languages, cultureLanguage],
+                      }));
+                      patchCulture();
+                      setCultureLanguage("");
+                    } else {
+                      patchCulture();
+                    }
                   }}
                   disabled={loading ? true : false}
                 >

@@ -19,6 +19,25 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
   const { loading, setLoading } = useUser();
   const dialogRef = useRef();
 
+  const patchCreature = () => {
+    setLoading(true);
+    axios
+      .patch(`${VITE_API_URL}/${resourceType}/${id}`, formData)
+      .then((res) => {
+        setMsg("Resource edited successfully");
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(true);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          window.location.reload();
+          setIsOpen(false);
+        }, 2000);
+      });
+  };
+
   useEffect(() => {
     if (isOpen) {
       dialogRef.current.showModal();
@@ -30,7 +49,7 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
       .get(`${VITE_API_URL}/${resourceType}/${id}`)
       .then((res) => {
         setCreature({ ...res.data });
-        setFormData({ ...res.data, type: "", traits: "" });
+        setFormData({ ...res.data });
       })
       .catch((err) => {
         console.error(err);
@@ -123,11 +142,18 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                     />
                     <button
                       onClick={() => {
-                        setFormData((curr) => ({
-                          ...curr,
-                          type: [...formData.type, creatureType],
-                        }));
-                        setCreatureType("");
+                        if (creatureType === "") {
+                          setFormData((curr) => ({
+                            ...curr,
+                            type: [...formData.type],
+                          }));
+                        } else {
+                          setFormData((curr) => ({
+                            ...curr,
+                            type: [...formData.type, creatureType],
+                          }));
+                          setCreatureType("");
+                        }
                       }}
                     >
                       +
@@ -161,11 +187,18 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                     />
                     <button
                       onClick={() => {
-                        setFormData((curr) => ({
-                          ...curr,
-                          traits: [...formData.traits, creatureTrait],
-                        }));
-                        setCreatureTrait("");
+                        if (creatureTrait === "") {
+                          setFormData((curr) => ({
+                            ...curr,
+                            traits: [...formData.traits],
+                          }));
+                        } else {
+                          setFormData((curr) => ({
+                            ...curr,
+                            traits: [...formData.traits, creatureTrait],
+                          }));
+                          setCreatureTrait("");
+                        }
                       }}
                     >
                       +
@@ -316,22 +349,23 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                 </button>
                 <button
                   onClick={() => {
-                    setLoading(true);
-                    axios
-                      .patch(`${VITE_API_URL}/${resourceType}/${id}`, formData)
-                      .then((res) => {
-                        setMsg("Resource edited successfully");
-                      })
-                      .catch((err) => {
-                        console.error(err);
-                        setError(true);
-                      })
-                      .finally(() => {
-                        setTimeout(() => {
-                          window.location.reload();
-                          setIsOpen(false);
-                        }, 2000);
-                      });
+                    if (creatureType) {
+                      setFormData((curr) => ({
+                        ...curr,
+                        type: [...formData.type, creatureType],
+                      }));
+                      patchCreature();
+                      setCreatureType("");
+                    } else if (creatureTrait) {
+                      setFormData((curr) => ({
+                        ...curr,
+                        traits: [...formData.traits, creatureTrait],
+                      }));
+                      patchCreature();
+                      setCreatureTrait("");
+                    } else {
+                      patchCreature();
+                    }
                   }}
                   disabled={loading ? true : false}
                 >
