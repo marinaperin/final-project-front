@@ -29,11 +29,7 @@ export default function () {
   const postCreature = () => {
     setLoading(true);
     axios
-      .post(`${VITE_API_URL}/creatures`, {
-        ...formData,
-        type: [...formData.type, creatureType],
-        traits: [...formData.traits, creatureTrait],
-      })
+      .post(`${VITE_API_URL}/creatures`, formData)
       .then((res) => {
         setComplete(true);
       })
@@ -51,7 +47,7 @@ export default function () {
     axios
       .get(`${VITE_API_URL}/cultures`)
       .then((res) => {
-        setCultures([{ _id: null, name: "Choose" }, ...res.data]);
+        setCultures([{ _id: "", name: "Choose" }, ...res.data]);
       })
       .catch((err) => {
         console.error(err);
@@ -65,7 +61,7 @@ export default function () {
         const filteredEvents = res.data.filter((e) => {
           return e.creatures.length === 0;
         }); */
-        setEvents([{ _id: null, name: "Choose" }, ...res.data]);
+        setEvents([{ _id: "", name: "Choose" }, ...res.data]);
       })
       .catch((err) => {
         console.error(err);
@@ -131,11 +127,18 @@ export default function () {
               />
               <button
                 onClick={() => {
-                  setFormData((curr) => ({
-                    ...curr,
-                    type: [...formData.type, creatureType],
-                  }));
-                  setCreatureType("");
+                  if (creatureType === "") {
+                    setFormData((curr) => ({
+                      ...curr,
+                      type: [...formData.type],
+                    }));
+                  } else {
+                    setFormData((curr) => ({
+                      ...curr,
+                      type: [...formData.type, creatureType],
+                    }));
+                    setCreatureType("");
+                  }
                 }}
               >
                 +
@@ -168,11 +171,18 @@ export default function () {
               />
               <button
                 onClick={() => {
-                  setFormData((curr) => ({
-                    ...curr,
-                    traits: [...formData.traits, creatureTrait],
-                  }));
-                  setCreatureTrait("");
+                  if (creatureTrait === "") {
+                    setFormData((curr) => ({
+                      ...curr,
+                      traits: [...formData.traits],
+                    }));
+                  } else {
+                    setFormData((curr) => ({
+                      ...curr,
+                      traits: [...formData.traits, creatureTrait],
+                    }));
+                    setCreatureTrait("");
+                  }
                 }}
               >
                 +
@@ -222,31 +232,8 @@ export default function () {
               <span className="required">*</span> Event (one event per
               creature):{" "}
             </span>
-            {!haveEvent && (
-              <>
-                <div>
-                  <button
-                    onClick={() => {
-                      setHaveEvent(true);
-                    }}
-                    className="spaced-buttons"
-                  >
-                    Yes
-                  </button>
-                  <button
-                    onClick={() => {
-                      setHaveEvent(true);
-                      setFormData((curr) => ({ ...curr, event: null }));
-                    }}
-                    className="spaced-buttons"
-                  >
-                    No
-                  </button>
-                </div>
-              </>
-            )}
-            {haveEvent && formData.event === "" && (
-              <div>
+            <div>
+              {!haveEvent && (
                 <select
                   value={formData.event}
                   onChange={(e) => {
@@ -254,6 +241,7 @@ export default function () {
                       ...curr,
                       event: e.target.value,
                     }));
+                    setHaveEvent(true);
                   }}
                 >
                   {events.map((e) => {
@@ -264,9 +252,16 @@ export default function () {
                     );
                   })}
                 </select>
-              </div>
-            )}
-            {haveEvent && formData.event !== '' && <p>{formData.event}</p>}
+              )}
+              <button
+                onClick={() => {
+                  setHaveEvent(!haveEvent);
+                  setFormData((curr) => ({ ...curr, event: null }));
+                }}
+              >
+                {haveEvent ? "Back" : "No event"}
+              </button>
+            </div>
           </label>
           <label>
             <p>Description: </p>
@@ -313,7 +308,23 @@ export default function () {
           <div>
             <button
               onClick={() => {
-                postCreature();
+                if (creatureType) {
+                  setFormData((curr) => ({
+                    ...curr,
+                    type: [...formData.type, creatureType],
+                  }));
+                  postCreature();
+                  setCreatureType("");
+                } else if (creatureTrait) {
+                  setFormData((curr) => ({
+                    ...curr,
+                    traits: [...formData.traits, creatureTrait],
+                  }));
+                  postCreature();
+                  setCreatureTrait("");
+                } else {
+                  postCreature();
+                }
               }}
               disabled={loading ? true : false}
               className="add-btn"

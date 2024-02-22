@@ -30,15 +30,7 @@
     justify-items: center;
     gap: 0.5rem;
   }
-  textarea {
-    font: inherit;
-    border-radius: 2rem;
-    height: 4rem;
-    resize: vertical;
-    outline: none;
-    border: 1px solid $gold-color;
-    padding: 0.5rem;
-  }
+
   .add-btn {
     position: fixed;
     top: calc((100vh - 8rem));

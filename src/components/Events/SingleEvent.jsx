@@ -18,7 +18,6 @@ export default function () {
       .get(`${VITE_API_URL}/events/${id}`)
       .then((res) => {
         setEvent({ ...res.data });
-        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);

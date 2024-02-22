@@ -245,49 +245,33 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                 <label>
                   <span>Event (one creature per event): </span>
                   {!haveEvent && (
-                    <>
-                      <div>
-                        <button
-                          onClick={() => {
-                            setHaveEvent(true);
-                          }}
-                          className="spaced-buttons"
-                        >
-                          Yes
-                        </button>
-                        <button
-                          onClick={() => {
-                            setHaveEvent(true);
-                            setFormData((curr) => ({ ...curr, event: null }));
-                          }}
-                          className="spaced-buttons"
-                        >
-                          No
-                        </button>
-                      </div>
-                    </>
-                  )}
-                  {haveEvent && formData.event === "" && (
-                    <div>
-                      <select
-                        value={formData.event}
-                        onChange={(e) =>
-                          setFormData((curr) => ({
-                            ...curr,
-                            event: e.target.value,
-                          }))
-                        }
-                      >
-                        {events.map((e) => {
-                          return (
-                            <option value={e._id} key={e._id}>
-                              {e.name}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-                  )}
+                <select
+                  value={formData.event}
+                  onChange={(e) => {
+                    setFormData((curr) => ({
+                      ...curr,
+                      event: e.target.value,
+                    }));
+                    setHaveEvent(true);
+                  }}
+                >
+                  {events.map((e) => {
+                    return (
+                      <option value={e._id} key={e._id} title={e.name}>
+                        {e.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              )}
+              <button
+                onClick={() => {
+                  setHaveEvent(!haveEvent);
+                  setFormData((curr) => ({ ...curr, event: null }));
+                }}
+              >
+                {haveEvent ? "Back" : "No event"}
+              </button>
                 </label>
                 <label>
                   <p>Description: </p>
