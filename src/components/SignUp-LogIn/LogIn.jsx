@@ -10,14 +10,37 @@ export default function () {
   });
   const { user, loading, error, logIn } = useUser();
   const { email, password } = inputValues;
+  const [credError, setCredError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [pwdError, setPwdError] = useState("");
+
+  const logUser = () => {
+    if (!email || !password) {
+      setCredError("All fields must be filled");
+      return;
+    }
+    if (!email.includes("@")) {
+      setEmailError("Invalid email");
+      return;
+    }
+    logIn(email, password);
+    setInputValues({ email: "", password: "" });
+  };
 
   return (
     <main className="log-in">
       <h1>Log In</h1>
       {loading && <div>Loading...</div>}
-      {error && <div>{error}</div>}
+      {error && <div>Issue logging in</div>}
+      {credError && <div>{credError}</div>}
+      {emailError && <div>{emailError}</div>}
       {!user && (
-        <section>
+        <section
+          onClick={() => {
+            setCredError("");
+            setEmailError("");
+          }}
+        >
           <label>
             Email:
             <input
@@ -25,7 +48,14 @@ export default function () {
               required
               value={inputValues.email}
               onChange={(e) => {
+                setCredError("");
+                setEmailError("");
                 setInputValues({ ...inputValues, email: e.target.value });
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  logUser();
+                }
               }}
             />
           </label>
@@ -36,20 +66,20 @@ export default function () {
               required
               value={inputValues.password}
               onChange={(e) => {
+                setCredError("");
+                setEmailError("");
                 setInputValues({ ...inputValues, password: e.target.value });
               }}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  logIn(email, password);
-                  setInputValues({ email: "", password: "" });
+                  logUser();
                 }
               }}
             />
           </label>
           <button
             onClick={() => {
-              logIn(email, password);
-              setInputValues({ email: "", password: "" });
+              logUser();
             }}
             disabled={loading ? true : false}
           >
