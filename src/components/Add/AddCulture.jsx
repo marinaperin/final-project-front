@@ -114,7 +114,7 @@ export default function () {
             </div>
 
             {formData.religions.length > 0 && (
-              <p>
+              <p className="list">
                 {formData.religions.map((r) => (
                   <span key={r}>{r} | </span>
                 ))}
@@ -153,7 +153,7 @@ export default function () {
             </div>
 
             {formData.languages.length > 0 && (
-              <p>
+              <p className="list">
                 {formData.languages.map((l) => (
                   <span key={l}>{l} | </span>
                 ))}

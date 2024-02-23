@@ -154,7 +154,7 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                 </div>
 
                 {formData.religions && formData.religions.length > 0 && (
-                  <p>
+                  <p className="list">
                     {formData.religions.map((r) => (
                       <span key={r}>{r} | </span>
                     ))}
@@ -198,9 +198,8 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                     +
                   </button>
                 </div>
-
                 {formData.languages && formData.languages.length > 0 && (
-                  <p>
+                  <p className="list">
                     {formData.languages.map((l) => (
                       <span key={l}>{l} | </span>
                     ))}

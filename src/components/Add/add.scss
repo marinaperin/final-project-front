@@ -9,7 +9,7 @@
   justify-items: center;
 }
 
-.issue-msg{
+.issue-msg {
   display: grid;
   justify-items: center;
   color: indianred;
@@ -30,7 +30,6 @@
     justify-items: center;
     gap: 0.5rem;
   }
-
   .add-btn {
     position: fixed;
     top: calc((100vh - 8rem));

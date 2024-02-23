@@ -158,7 +158,7 @@ export default function () {
             </div>
 
             {formData.type.length > 0 && (
-              <p>
+              <p className="list">
                 {formData.type.map((t) => (
                   <span key={t}>{t} | </span>
                 ))}
@@ -201,7 +201,7 @@ export default function () {
               </button>
             </div>
             {formData.traits.length > 0 && (
-              <p>
+              <p className="list">
                 {formData.traits.map((t) => (
                   <span key={t}>{t} | </span>
                 ))}
@@ -269,6 +269,7 @@ export default function () {
                   setHaveEvent(!haveEvent);
                   setFormData((curr) => ({ ...curr, event: null }));
                 }}
+                disabled={loading ? true : false}
               >
                 {haveEvent ? "Back" : "No event"}
               </button>

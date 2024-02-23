@@ -98,7 +98,7 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
           {!msg && formData && cultures && events && (
             <>
               <h2>Edit</h2>
-              <div>
+              <div className="inputs-modal">
                 <label>
                   <span>Name: </span>
                   <input
@@ -160,7 +160,7 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                     </button>
                   </div>
                   {formData.type && formData.type.length > 0 && (
-                    <p>
+                    <p className="list">
                       {formData.type.map((t) => (
                         <span key={t}>{t} | </span>
                       ))}
@@ -204,7 +204,7 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                       +
                     </button>
                     {formData.traits && formData.traits.length > 0 && (
-                      <p>
+                      <p className="list">
                         {formData.traits.map((t) => (
                           <span key={t}>{t} | </span>
                         ))}

@@ -144,6 +144,14 @@ textarea {
   }
 }
 
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  margin-inline: 3rem;
+  gap: .5rem;
+}
+
 $delete-dialog-height: 60%;
 $delete-dialog-width: 90%;
 $edit-dialog-height: 90%;
@@ -194,6 +202,10 @@ dialog[open] {
       display: grid;
       justify-content: center;
       gap: 0.5rem;
+    }
+    .inputs-modal{
+      display: grid;
+      gap: 1rem;
     }
   }
 }

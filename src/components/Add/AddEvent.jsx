@@ -150,7 +150,7 @@ export default function () {
             </div>
 
             {formData.date.length > 0 && (
-              <p>
+              <p className="list">
                 {formData.date.map((d) => (
                   <span key={d}>{d} | </span>
                 ))}

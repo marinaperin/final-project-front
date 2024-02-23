@@ -45,7 +45,7 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
       .get(`${VITE_API_URL}/${resourceType}/${id}`)
       .then((res) => {
         setEvent({ ...res.data });
-        setFormData({ ...res.data, date: "" });
+        setFormData({ ...res.data});
       })
       .catch((err) => {
         console.error(err);
@@ -184,7 +184,7 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                 </div>
 
                 {formData.date && formData.date.length > 0 && (
-                  <p>
+                  <p className="list">
                     {formData.date.map((d) => (
                       <span key={d}>{d} | </span>
                     ))}
