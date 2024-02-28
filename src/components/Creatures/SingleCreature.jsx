@@ -46,7 +46,7 @@ export default function () {
         console.error(err);
         setError(true);
       });
-  }, [user]);
+  }, [user, creature]);
 
   return (
     <>

@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
       })
       .catch((err) => {
         console.error(err);
-        setError(error);
+        setError(err);
       })
       .finally(() => {
         setLoading(false);
@@ -42,7 +42,7 @@ export const UserProvider = ({ children }) => {
       })
       .catch((err) => {
         console.error(err);
-        setError(error);
+        setError(err);
       })
       .finally(() => {
         setLoading(false);
@@ -62,6 +62,7 @@ export const UserProvider = ({ children }) => {
     logOut,
     setUser,
     error,
+    setError,
     loading,
     setLoading,
     isOpen,

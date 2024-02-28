@@ -8,7 +8,7 @@ export default function () {
     email: "",
     password: "",
   });
-  const { user, loading, error, logIn } = useUser();
+  const { user, loading, error, setError, logIn } = useUser();
   const { email, password } = inputValues;
   const [credError, setCredError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -31,7 +31,7 @@ export default function () {
     <main className="log-in">
       <h1>Log In</h1>
       {loading && <div>Loading...</div>}
-      {error && <div>Issue logging in</div>}
+      {error && <div className="error-msg">Issue logging in, try again</div>}
       {credError && <div>{credError}</div>}
       {emailError && <div>{emailError}</div>}
       {!user && (
@@ -39,6 +39,7 @@ export default function () {
           onClick={() => {
             setCredError("");
             setEmailError("");
+            setError(null);
           }}
         >
           <label>
@@ -50,6 +51,7 @@ export default function () {
               onChange={(e) => {
                 setCredError("");
                 setEmailError("");
+                setError(null);
                 setInputValues({ ...inputValues, email: e.target.value });
               }}
               onKeyDown={(e) => {
@@ -68,6 +70,7 @@ export default function () {
               onChange={(e) => {
                 setCredError("");
                 setEmailError("");
+                setError(null);
                 setInputValues({ ...inputValues, password: e.target.value });
               }}
               onKeyDown={(e) => {

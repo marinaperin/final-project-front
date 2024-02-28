@@ -9,6 +9,7 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
   const [msg, setMsg] = useState("");
   const [culture, setCulture] = useState();
   const [error, setError] = useState(false);
+  const [requiredField, setRequiredField] = useState("");
   const [cultureReligion, setCultureReligion] = useState("");
   const [cultureLanguage, setCultureLanguage] = useState("");
   const { loading, setLoading } = useUser();
@@ -16,6 +17,10 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
   const dialogRef = useRef();
 
   const patchCulture = (data) => {
+    if (!formData.name || !formData.country || !formData.continent) {
+      setRequiredField("Required fields cannot be left empty");
+      return;
+    }
     setLoading(true);
     axios
       .patch(`${VITE_API_URL}/${resourceType}/${id}`, formData)
@@ -28,9 +33,8 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
       })
       .finally(() => {
         setTimeout(() => {
-          window.location.reload();
           setIsOpen(false);
-        }, 2000);
+        }, 3000);
       });
   };
 
@@ -72,44 +76,48 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
               <p>Reloading page...</p>
             </div>
           )}
+          {requiredField && <div className="error-msg">{requiredField}</div>}
           {!msg && formData && (
             <>
               {" "}
               <h2>Edit</h2>
               <label>
-                <span>Name:</span>
+                <span>* Name:</span>
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) =>
-                    setFormData((curr) => ({ ...curr, name: e.target.value }))
-                  }
+                  onChange={(e) => {
+                    setRequiredField("");
+                    setFormData((curr) => ({ ...curr, name: e.target.value }));
+                  }}
                 />
               </label>
               <label>
-                <span>Country:</span>
+                <span>* Country:</span>
                 <input
                   type="text"
                   value={formData.country}
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    setRequiredField("");
                     setFormData((curr) => ({
                       ...curr,
                       country: e.target.value,
-                    }))
-                  }
+                    }));
+                  }}
                 />
               </label>
               <label>
-                <span>Continent:</span>
+                <span>* Continent:</span>
                 <input
                   type="text"
                   value={formData.continent}
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    setRequiredField("");
                     setFormData((curr) => ({
                       ...curr,
                       continent: e.target.value,
-                    }))
-                  }
+                    }));
+                  }}
                 />
               </label>
               <label>
@@ -214,6 +222,9 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                 )}
               </label>
               <div>
+                {requiredField && (
+                  <div className="error-msg">{requiredField}</div>
+                )}
                 <button
                   onClick={() => {
                     setIsOpen(false);

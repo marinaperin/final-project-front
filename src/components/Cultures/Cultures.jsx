@@ -14,6 +14,7 @@ export default function () {
   const [data, setData] = useState({});
   const [filteredData, setFilteredData] = useState();
   const [cultures, setCultures] = useState();
+  const [allCultures, setAllCultures] = useState();
   const [showedCultures, setShowedCultures] = useState();
   const [error, setError] = useState(false);
   const [selVal, setSelVal] = useState();
@@ -34,6 +35,15 @@ export default function () {
         setError(true);
       })
       .finally(() => setLoading(false));
+
+    axios
+      .get(`${VITE_API_URL}/cultures`)
+      .then((res) => {
+        setAllCultures(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, [query]);
 
   return (
@@ -41,7 +51,7 @@ export default function () {
       <main className="main-page">
         {error && <ErrorMsg />}
         {!error && !cultures && <Loader />}
-        {!error && cultures && (
+        {!error && cultures && allCultures && (
           <>
             <header>
               <h1>Cultures</h1>
@@ -81,7 +91,7 @@ export default function () {
                         if (e.target.value === "") {
                           setShowedCultures(cultures);
                         } else {
-                          const filtered = cultures.filter(
+                          const filtered = allCultures.filter(
                             (c) => c.continent === e.target.value
                           );
                           let total_results = 0;

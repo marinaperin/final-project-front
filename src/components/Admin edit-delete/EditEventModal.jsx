@@ -10,12 +10,17 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
   const [event, setEvent] = useState();
   const [cultures, setCultures] = useState();
   const [error, setError] = useState(false);
+  const [requiredField, setRequiredField] = useState("");
   const [eventDate, setEventDate] = useState("");
   const { loading, setLoading } = useUser();
   const [formData, setFormData] = useState({});
   const dialogRef = useRef();
 
   const patchEvent = () => {
+    if (!formData.name || !formData.type) {
+      setRequiredField("Required fields cannot be left empty");
+      return;
+    }
     setLoading(true);
     axios
       .patch(`${VITE_API_URL}/${resourceType}/${id}`, formData)
@@ -28,9 +33,8 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
       })
       .finally(() => {
         setTimeout(() => {
-          window.location.reload();
           setIsOpen(false);
-        }, 2000);
+        }, 3000);
       });
   };
 
@@ -45,7 +49,7 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
       .get(`${VITE_API_URL}/${resourceType}/${id}`)
       .then((res) => {
         setEvent({ ...res.data });
-        setFormData({ ...res.data});
+        setFormData({ ...res.data });
       })
       .catch((err) => {
         console.error(err);
@@ -81,21 +85,23 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
               <p>Reloading page...</p>
             </div>
           )}
+          {requiredField && <div className="error-msg">{requiredField}</div>}
           {!msg && formData && cultures && (
             <>
               <h2>Edit</h2>
               <label>
-                <span>Name:</span>
+                <span>* Name:</span>
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) =>
-                    setFormData((curr) => ({ ...curr, name: e.target.value }))
-                  }
+                  onChange={(e) => {
+                    setRequiredField("");
+                    setFormData((curr) => ({ ...curr, name: e.target.value }));
+                  }}
                 />
               </label>
               <label>
-                <span>Culture:</span>
+                <span>* Culture:</span>
                 <select
                   value={formData.culture}
                   onChange={(e) =>
@@ -115,12 +121,13 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                 </select>
               </label>
               <label>
-                <span>Type:</span>
+                <span>* Type:</span>
                 <div>
                   <input
                     type="text"
                     value={formData.type}
                     onChange={(e) => {
+                      setRequiredField("");
                       setFormData((curr) => ({
                         ...curr,
                         type: e.target.value,
@@ -215,6 +222,9 @@ export default function ({ resourceType, isOpen, setIsOpen }) {
                 ></textarea>
               </label>
               <div>
+                {requiredField && (
+                  <div className="error-msg">{requiredField}</div>
+                )}
                 <button
                   onClick={() => {
                     setIsOpen(false);

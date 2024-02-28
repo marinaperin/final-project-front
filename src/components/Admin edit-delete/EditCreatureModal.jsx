@@ -15,11 +15,16 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
   const [creatureTrait, setCreatureTrait] = useState("");
   const [haveEvent, setHaveEvent] = useState(false);
   const [error, setError] = useState(false);
+  const [requiredField, setRequiredField] = useState("");
   const [formData, setFormData] = useState({});
   const { loading, setLoading } = useUser();
   const dialogRef = useRef();
 
   const patchCreature = () => {
+    if (!formData.name || !formData.type) {
+      setRequiredField("Required fields cannot be left empty");
+      return;
+    }
     setLoading(true);
     axios
       .patch(`${VITE_API_URL}/${resourceType}/${id}`, formData)
@@ -32,9 +37,8 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
       })
       .finally(() => {
         setTimeout(() => {
-          window.location.reload();
           setIsOpen(false);
-        }, 2000);
+        }, 3000);
       });
   };
 
@@ -95,22 +99,27 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
               <p>Reloading page...</p>
             </div>
           )}
+          {requiredField && <div className="error-msg">{requiredField}</div>}
           {!msg && formData && cultures && events && (
             <>
               <h2>Edit</h2>
               <div className="inputs-modal">
                 <label>
-                  <span>Name: </span>
+                  <span>* Name: </span>
                   <input
                     type="text"
                     value={formData.name}
-                    onChange={(e) =>
-                      setFormData((curr) => ({ ...curr, name: e.target.value }))
-                    }
+                    onChange={(e) => {
+                      setRequiredField("");
+                      setFormData((curr) => ({
+                        ...curr,
+                        name: e.target.value,
+                      }));
+                    }}
                   />
                 </label>
                 <label>
-                  <span>Culture: </span>
+                  <span>* Culture: </span>
                   <select
                     value={formData.culture}
                     onChange={(e) =>
@@ -130,12 +139,13 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                   </select>
                 </label>
                 <label>
-                  <span>Type: </span>
+                  <span>* Type: </span>
                   <div>
                     <input
                       type="text"
                       value={creatureType}
                       onChange={(e) => {
+                        setRequiredField("");
                         setCreatureType(e.target.value);
                       }}
                       placeholder="Click + to add"
@@ -243,35 +253,35 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                   />
                 </label>
                 <label>
-                  <span>Event (one creature per event): </span>
+                  <span>* Event (one creature per event): </span>
                   {!haveEvent && (
-                <select
-                  value={formData.event}
-                  onChange={(e) => {
-                    setFormData((curr) => ({
-                      ...curr,
-                      event: e.target.value,
-                    }));
-                    setHaveEvent(true);
-                  }}
-                >
-                  {events.map((e) => {
-                    return (
-                      <option value={e._id} key={e._id} title={e.name}>
-                        {e.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              )}
-              <button
-                onClick={() => {
-                  setHaveEvent(!haveEvent);
-                  setFormData((curr) => ({ ...curr, event: null }));
-                }}
-              >
-                {haveEvent ? "Back" : "No event"}
-              </button>
+                    <select
+                      value={formData.event}
+                      onChange={(e) => {
+                        setFormData((curr) => ({
+                          ...curr,
+                          event: e.target.value,
+                        }));
+                        setHaveEvent(true);
+                      }}
+                    >
+                      {events.map((e) => {
+                        return (
+                          <option value={e._id} key={e._id} title={e.name}>
+                            {e.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  )}
+                  <button
+                    onClick={() => {
+                      setHaveEvent(!haveEvent);
+                      setFormData((curr) => ({ ...curr, event: null }));
+                    }}
+                  >
+                    {haveEvent ? "Back" : "No event"}
+                  </button>
                 </label>
                 <label>
                   <p>Description: </p>
@@ -323,6 +333,9 @@ export default function ({ isOpen, setIsOpen, resourceType }) {
                 </label>
               </div>
               <div>
+                {requiredField && (
+                  <div className="error-msg">{requiredField}</div>
+                )}
                 <button
                   onClick={() => {
                     setIsOpen(false);

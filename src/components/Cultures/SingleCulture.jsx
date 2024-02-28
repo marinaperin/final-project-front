@@ -23,7 +23,7 @@ export default function () {
         console.error(err);
         setError(true);
       });
-  }, []);
+  }, [culture]);
 
   return (
     <>
@@ -52,7 +52,7 @@ export default function () {
                       {culture.continent}
                     </li>
                   )}
-                  {culture.creatures && (
+                  {culture.creatures && culture.creatures.length > 0 && (
                     <li>
                       <strong>Creatures: </strong>
                       <ul className="creatures-ul">
@@ -96,7 +96,7 @@ export default function () {
                         <strong>Religions: </strong>
                         <ul className="nested-ul">
                           {culture.religions.map((r) => {
-                            return <li key={r}>{r !== '' && r}</li>;
+                            return <li key={r}>{r !== "" && r}</li>;
                           })}
                         </ul>
                       </li>

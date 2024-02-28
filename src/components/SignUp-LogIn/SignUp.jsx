@@ -8,7 +8,7 @@ export default function () {
     password: "",
     confirmPassword: "",
   });
-  const { signUp, error, loading, user } = useUser();
+  const { signUp, error, setError, loading, user } = useUser();
   const [confirmPwdError, setConfirmPwdError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [missingError, setMissingError] = useState("");
@@ -41,7 +41,9 @@ export default function () {
     <main className="sign-up">
       <h1>Sign Up</h1>
       {loading && <div>Loading...</div>}
-      {error && <div>Issue creating account</div>}
+      {error && (
+        <div className="error-msg">Issue creating account, try again</div>
+      )}
       {emailError && <div>{emailError}</div>}
       {missingError && <div>{missingError}</div>}
       {pwdError && <div>{pwdError}</div>}
@@ -53,6 +55,7 @@ export default function () {
             setEmailError("");
             setMissingError("");
             setPwdError("");
+            setError(null);
           }}
         >
           <label>
@@ -66,6 +69,7 @@ export default function () {
                 setEmailError("");
                 setMissingError("");
                 setPwdError("");
+                setError(null);
                 setInputValues({ ...inputValues, email: e.target.value });
               }}
               onKeyDown={(e) => {
@@ -91,6 +95,7 @@ export default function () {
                 setEmailError("");
                 setMissingError("");
                 setPwdError("");
+                setError(null);
                 setInputValues({ ...inputValues, password: e.target.value });
               }}
               onKeyDown={(e) => {
@@ -117,6 +122,7 @@ export default function () {
                 setEmailError("");
                 setMissingError("");
                 setPwdError("");
+                setError(null);
                 setInputValues({
                   ...inputValues,
                   confirmPassword: e.target.value,

@@ -23,7 +23,7 @@ export default function () {
         console.error(err);
         setError(true);
       });
-  }, []);
+  }, [event]);
 
   return (
     <>
@@ -53,14 +53,18 @@ export default function () {
                     <strong>Type: </strong>
                     {event.type}
                   </li>
-                  {event.description && <li>
-                    <strong>Description: </strong>
-                    {event.description}
-                  </li>}
-                  {event.first_mention && <li>
-                    <strong>First Mention: </strong>
-                    {event.first_mention}
-                  </li>}
+                  {event.description && (
+                    <li>
+                      <strong>Description: </strong>
+                      {event.description}
+                    </li>
+                  )}
+                  {event.first_mention && (
+                    <li>
+                      <strong>First Mention: </strong>
+                      {event.first_mention}
+                    </li>
+                  )}
                   {event.date.length > 0 && event.date[0] !== "" && (
                     <li>
                       <strong>
@@ -73,23 +77,25 @@ export default function () {
                       </ul>
                     </li>
                   )}
-                  {event.creatures.length > 0 && <li>
-                    <strong>Creatures: </strong>
-                    <ul className="creatures-ul">
-                      {event.creatures.map((c) => {
-                        return (
-                          <li key={c._id}>
-                            <Link
-                              to={`/creatures/creature/${c._id}`}
-                              className="link"
-                            >
-                              {c.name}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </li>}
+                  {event.creatures.length > 0 && (
+                    <li>
+                      <strong>Creatures: </strong>
+                      <ul className="creatures-ul">
+                        {event.creatures.map((c) => {
+                          return (
+                            <li key={c._id}>
+                              <Link
+                                to={`/creatures/creature/${c._id}`}
+                                className="link"
+                              >
+                                {c.name}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </li>
+                  )}
                 </ul>
               </div>
             </section>
